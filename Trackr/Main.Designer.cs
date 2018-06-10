@@ -38,7 +38,6 @@
             this.Maximize = new System.Windows.Forms.PictureBox();
             this.ClientIcon = new System.Windows.Forms.PictureBox();
             this.ClientControlBar = new System.Windows.Forms.PictureBox();
-            this.activityPanel1 = new Trackr.ActivityPanel();
             this.activtyTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).BeginInit();
@@ -70,6 +69,7 @@
             this.StartInputActivity.TabIndex = 6;
             this.StartInputActivity.Text = "Start";
             this.StartInputActivity.UseVisualStyleBackColor = false;
+            this.StartInputActivity.Click += new System.EventHandler(this.StartInputActivity_Click);
             // 
             // InputActivity
             // 
@@ -77,11 +77,12 @@
             this.InputActivity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.InputActivity.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InputActivity.ForeColor = System.Drawing.Color.Silver;
-            this.InputActivity.Location = new System.Drawing.Point(10, 46);
+            this.InputActivity.Location = new System.Drawing.Point(16, 47);
             this.InputActivity.Name = "InputActivity";
-            this.InputActivity.Size = new System.Drawing.Size(240, 16);
+            this.InputActivity.Size = new System.Drawing.Size(230, 16);
             this.InputActivity.TabIndex = 7;
             this.InputActivity.Text = "May the Kitchen Spirits be With You";
+            this.InputActivity.Click += new System.EventHandler(this.InputActivity_Click);
             // 
             // ClientDayLabel
             // 
@@ -138,17 +139,10 @@
             this.ClientControlBar.TabStop = false;
             this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
             // 
-            // activityPanel1
-            // 
-            this.activityPanel1.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.activityPanel1.Location = new System.Drawing.Point(0, 108);
-            this.activityPanel1.Name = "activityPanel1";
-            this.activityPanel1.Size = new System.Drawing.Size(350, 60);
-            this.activityPanel1.TabIndex = 10;
-            // 
             // activtyTimer
             // 
-            this.activtyTimer.Interval = 1;
+            this.activtyTimer.Interval = 1000;
+            this.activtyTimer.Tick += new System.EventHandler(this.activtyTimer_Tick);
             // 
             // Main
             // 
@@ -156,7 +150,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
-            this.Controls.Add(this.activityPanel1);
             this.Controls.Add(this.ClientDayLabel);
             this.Controls.Add(this.InputActivity);
             this.Controls.Add(this.StartInputActivity);
@@ -187,7 +180,6 @@
         private System.Windows.Forms.Button StartInputActivity;
         private System.Windows.Forms.TextBox InputActivity;
         private System.Windows.Forms.Label ClientDayLabel;
-        private ActivityPanel activityPanel1;
         private System.Windows.Forms.Timer activtyTimer;
     }
 }

@@ -12,6 +12,43 @@ namespace Trackr
 {
     public partial class Main : Form
     {
+        internal List<ActivityPanel> activities;
+        internal ActivityPanel activeActivity;
+        internal int activitySecondsElapsed = 0;
+
+        internal void InitializeActivity()
+        {
+            if (activities != null)
+            {
+                for (int p = 0; p < activities.Count(); p++)
+                {
+                    var control = Controls[Controls.IndexOf(activities[p])];
+                    control.Location = new Point(
+                        control.Location.X,
+                        control.Location.Y + 60);
+                }
+            }
+            else
+            {
+                activities = new List<ActivityPanel>();
+            }
+
+            Random rnd = new Random();
+            var newPanel = new ActivityPanel
+            {
+                Location = new Point(0, 110)
+            };
+            newPanel.ActivityName.Text = InputActivity.Text;
+            newPanel.ProjectColor.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+
+            activities.Add(newPanel);
+            Controls.Add(newPanel);
+
+            activeActivity = newPanel;
+            activtyTimer.Start();
+            StartInputActivity.Text = "Stop";
+        }
+
         public Main()
         {
             InitializeComponent();
@@ -33,6 +70,35 @@ namespace Trackr
             {
                 Location = new Point(MousePosition.X-175, MousePosition.Y-10);
             }
+        }
+
+        private void InputActivity_Click(object sender, EventArgs e)
+        {
+            InputActivity.Text = "";
+        }
+
+        private void StartInputActivity_Click(object sender, EventArgs e)
+        {
+            if (StartInputActivity.Text == "Stop")
+            {
+                activtyTimer.Stop();
+                activitySecondsElapsed = 0;
+                StartInputActivity.Text = "Start";
+            }
+            else
+            {
+                InitializeActivity();
+            }
+        }
+
+        private void activtyTimer_Tick(object sender, EventArgs e)
+        {
+            activities.Remove(activeActivity);
+            Controls.Remove(activeActivity);
+            activeActivity.ActivtyTime.Text = $"{activitySecondsElapsed}s";
+            activitySecondsElapsed++;
+            activities.Add(activeActivity);
+            Controls.Add(activeActivity);
         }
     }
 }

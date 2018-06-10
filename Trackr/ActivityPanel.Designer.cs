@@ -107,8 +107,8 @@
         #endregion
         private System.Windows.Forms.PictureBox pictureBox1;
         internal System.Windows.Forms.PictureBox ProjectColor;
-        private System.Windows.Forms.Label ActivityName;
-        private System.Windows.Forms.Label ProjectName;
-        private System.Windows.Forms.Label ActivtyTime;
+        internal System.Windows.Forms.Label ActivityName;
+        internal System.Windows.Forms.Label ProjectName;
+        internal System.Windows.Forms.Label ActivtyTime;
     }
 }
