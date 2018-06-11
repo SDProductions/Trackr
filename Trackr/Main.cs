@@ -168,7 +168,7 @@ namespace Trackr
                 timeConstruct += $"{secondsElapsed}";
             }
 
-            activeActivity.ActivtyTime.Text = $"{timeConstruct}s";
+            activeActivity.ActivityTime.Text = $"{timeConstruct}s";
 
             activities.Add(activeActivity);
             Controls.Add(activeActivity);
