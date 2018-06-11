@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ActivityName = new System.Windows.Forms.Label();
             this.ProjectName = new System.Windows.Forms.Label();
-            this.ActivityTime = new System.Windows.Forms.Label();
+            this.ActivtyTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProjectColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -75,22 +75,22 @@
             this.ProjectName.TabIndex = 3;
             this.ProjectName.Text = "Project Name";
             // 
-            // ActivityTime
+            // ActivtyTime
             // 
-            this.ActivityTime.AutoSize = true;
-            this.ActivityTime.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ActivityTime.Location = new System.Drawing.Point(200, 25);
-            this.ActivityTime.Name = "ActivityTime";
-            this.ActivityTime.Size = new System.Drawing.Size(109, 21);
-            this.ActivityTime.TabIndex = 4;
-            this.ActivityTime.Text = "00:00:00s";
+            this.ActivtyTime.AutoSize = true;
+            this.ActivtyTime.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ActivtyTime.Location = new System.Drawing.Point(200, 25);
+            this.ActivtyTime.Name = "ActivtyTime";
+            this.ActivtyTime.Size = new System.Drawing.Size(109, 21);
+            this.ActivtyTime.TabIndex = 4;
+            this.ActivtyTime.Text = "00:00:00s";
             // 
             // ActivityPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Controls.Add(this.ActivityTime);
+            this.Controls.Add(this.ActivtyTime);
             this.Controls.Add(this.ProjectName);
             this.Controls.Add(this.ActivityName);
             this.Controls.Add(this.pictureBox1);
@@ -109,6 +109,6 @@
         internal System.Windows.Forms.PictureBox ProjectColor;
         internal System.Windows.Forms.Label ActivityName;
         internal System.Windows.Forms.Label ProjectName;
-        internal System.Windows.Forms.Label ActivityTime;
+        internal System.Windows.Forms.Label ActivtyTime;
     }
 }
