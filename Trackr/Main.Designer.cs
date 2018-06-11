@@ -34,11 +34,11 @@
             this.StartInputActivity = new System.Windows.Forms.Button();
             this.InputActivity = new System.Windows.Forms.TextBox();
             this.ClientDayLabel = new System.Windows.Forms.Label();
+            this.activtyTimer = new System.Windows.Forms.Timer(this.components);
             this.Minimize = new System.Windows.Forms.PictureBox();
             this.Maximize = new System.Windows.Forms.PictureBox();
             this.ClientIcon = new System.Windows.Forms.PictureBox();
             this.ClientControlBar = new System.Windows.Forms.PictureBox();
-            this.activtyTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).BeginInit();
@@ -81,7 +81,7 @@
             this.InputActivity.Name = "InputActivity";
             this.InputActivity.Size = new System.Drawing.Size(230, 16);
             this.InputActivity.TabIndex = 7;
-            this.InputActivity.Text = "May the Kitchen Spirits be With You";
+            this.InputActivity.Text = "What are you doing?";
             this.InputActivity.Click += new System.EventHandler(this.InputActivity_Click);
             // 
             // ClientDayLabel
@@ -94,29 +94,38 @@
             this.ClientDayLabel.TabIndex = 9;
             this.ClientDayLabel.Text = "Today";
             // 
+            // activtyTimer
+            // 
+            this.activtyTimer.Interval = 1000;
+            this.activtyTimer.Tick += new System.EventHandler(this.activtyTimer_Tick);
+            // 
             // Minimize
             // 
-            this.Minimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(111)))), ((int)(((byte)(91)))));
-            this.Minimize.Image = ((System.Drawing.Image)(resources.GetObject("Minimize.Image")));
-            this.Minimize.Location = new System.Drawing.Point(295, 2);
+            this.Minimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
+            this.Minimize.Image = global::Trackr.Properties.Resources.minimize;
+            this.Minimize.Location = new System.Drawing.Point(290, 2);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(26, 26);
             this.Minimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Minimize.TabIndex = 5;
             this.Minimize.TabStop = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
+            this.Minimize.MouseEnter += new System.EventHandler(this.Minimize_MouseEnter);
+            this.Minimize.MouseLeave += new System.EventHandler(this.Minimize_MouseLeave);
             // 
             // Maximize
             // 
-            this.Maximize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(111)))), ((int)(((byte)(91)))));
-            this.Maximize.Image = ((System.Drawing.Image)(resources.GetObject("Maximize.Image")));
-            this.Maximize.Location = new System.Drawing.Point(324, 2);
+            this.Maximize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
+            this.Maximize.Image = global::Trackr.Properties.Resources.close;
+            this.Maximize.Location = new System.Drawing.Point(320, 2);
             this.Maximize.Name = "Maximize";
             this.Maximize.Size = new System.Drawing.Size(26, 26);
             this.Maximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Maximize.TabIndex = 4;
             this.Maximize.TabStop = false;
             this.Maximize.Click += new System.EventHandler(this.Maximize_Click);
+            this.Maximize.MouseEnter += new System.EventHandler(this.Maximize_MouseEnter);
+            this.Maximize.MouseLeave += new System.EventHandler(this.Maximize_MouseLeave);
             // 
             // ClientIcon
             // 
@@ -138,11 +147,6 @@
             this.ClientControlBar.TabIndex = 0;
             this.ClientControlBar.TabStop = false;
             this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
-            // 
-            // activtyTimer
-            // 
-            this.activtyTimer.Interval = 1000;
-            this.activtyTimer.Tick += new System.EventHandler(this.activtyTimer_Tick);
             // 
             // Main
             // 

@@ -83,7 +83,7 @@
             this.ActivtyTime.Name = "ActivtyTime";
             this.ActivtyTime.Size = new System.Drawing.Size(109, 21);
             this.ActivtyTime.TabIndex = 4;
-            this.ActivtyTime.Text = "00:00:00H";
+            this.ActivtyTime.Text = "00:00:00s";
             // 
             // ActivityPanel
             // 

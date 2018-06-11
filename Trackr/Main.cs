@@ -14,7 +14,9 @@ namespace Trackr
     {
         internal List<ActivityPanel> activities;
         internal ActivityPanel activeActivity;
-        internal int activitySecondsElapsed = 0;
+        internal int secondsElapsed = 0;
+        internal int minutesElapsed = 0;
+        internal int hoursElapsed = 0;
 
         internal void InitializeActivity()
         {
@@ -38,7 +40,14 @@ namespace Trackr
             {
                 Location = new Point(0, 110)
             };
-            newPanel.ActivityName.Text = InputActivity.Text;
+            if (InputActivity.Text != "What are you doing?")
+            {
+                newPanel.ActivityName.Text = InputActivity.Text;
+            }
+            else
+            {
+                newPanel.ActivityName.Text = "Unknown Activity";
+            }
             newPanel.ProjectColor.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
 
             activities.Add(newPanel);
@@ -47,6 +56,7 @@ namespace Trackr
             activeActivity = newPanel;
             activtyTimer.Start();
             StartInputActivity.Text = "Stop";
+            StartInputActivity.BackColor = Color.FromArgb(205, 198, 170);
         }
 
         public Main()
@@ -59,9 +69,29 @@ namespace Trackr
             WindowState = FormWindowState.Minimized;
         }
 
+        private void Minimize_MouseEnter(object sender, EventArgs e)
+        {
+            Minimize.BackColor = Color.FromArgb(30, 35, 45);
+        }
+
+        private void Minimize_MouseLeave(object sender, EventArgs e)
+        {
+            Minimize.BackColor = Color.FromArgb(20, 25, 35);
+        }
+
         private void Maximize_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Maximize_MouseEnter(object sender, EventArgs e)
+        {
+            Maximize.BackColor = Color.FromArgb(30, 35, 45);
+        }
+
+        private void Maximize_MouseLeave(object sender, EventArgs e)
+        {
+            Maximize.BackColor = Color.FromArgb(20, 25, 35);
         }
 
         private void ClientControlBar_MouseMove(object sender, MouseEventArgs e)
@@ -82,7 +112,11 @@ namespace Trackr
             if (StartInputActivity.Text == "Stop")
             {
                 activtyTimer.Stop();
-                activitySecondsElapsed = 0;
+                secondsElapsed = 0;
+                minutesElapsed = 0;
+                hoursElapsed = 0;
+                InputActivity.Text = "What are you doing?";
+                StartInputActivity.BackColor = Color.Cornsilk;
                 StartInputActivity.Text = "Start";
             }
             else
@@ -95,8 +129,47 @@ namespace Trackr
         {
             activities.Remove(activeActivity);
             Controls.Remove(activeActivity);
-            activeActivity.ActivtyTime.Text = $"{activitySecondsElapsed}s";
-            activitySecondsElapsed++;
+            
+            secondsElapsed++;
+            if (secondsElapsed >= 60)
+            {
+                secondsElapsed = 0;
+                minutesElapsed++;
+            }
+            if (minutesElapsed >= 60)
+            {
+                minutesElapsed = 0;
+                hoursElapsed++;
+            }
+
+            string timeConstruct = "";
+            if (hoursElapsed < 10)
+            {
+                timeConstruct += $"0{hoursElapsed}:";
+            }
+            else
+            {
+                timeConstruct += $"{hoursElapsed}:";
+            }
+            if (minutesElapsed < 10)
+            {
+                timeConstruct += $"0{minutesElapsed}:";
+            }
+            else
+            {
+                timeConstruct += $"{minutesElapsed}:";
+            }
+            if (secondsElapsed < 10)
+            {
+                timeConstruct += $"0{secondsElapsed}";
+            }
+            else
+            {
+                timeConstruct += $"{secondsElapsed}";
+            }
+
+            activeActivity.ActivtyTime.Text = $"{timeConstruct}s";
+
             activities.Add(activeActivity);
             Controls.Add(activeActivity);
         }
