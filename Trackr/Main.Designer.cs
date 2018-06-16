@@ -39,6 +39,7 @@
             this.Maximize = new System.Windows.Forms.PictureBox();
             this.ClientIcon = new System.Windows.Forms.PictureBox();
             this.ClientControlBar = new System.Windows.Forms.PictureBox();
+            this.ActivitiesDisplay = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).BeginInit();
@@ -148,12 +149,22 @@
             this.ClientControlBar.TabStop = false;
             this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
             // 
+            // ActivitiesDisplay
+            // 
+            this.ActivitiesDisplay.AutoScroll = true;
+            this.ActivitiesDisplay.BackColor = System.Drawing.Color.FloralWhite;
+            this.ActivitiesDisplay.Location = new System.Drawing.Point(0, 110);
+            this.ActivitiesDisplay.Name = "ActivitiesDisplay";
+            this.ActivitiesDisplay.Size = new System.Drawing.Size(350, 360);
+            this.ActivitiesDisplay.TabIndex = 10;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.ActivitiesDisplay);
             this.Controls.Add(this.ClientDayLabel);
             this.Controls.Add(this.InputActivity);
             this.Controls.Add(this.StartInputActivity);
@@ -185,6 +196,7 @@
         private System.Windows.Forms.TextBox InputActivity;
         private System.Windows.Forms.Label ClientDayLabel;
         private System.Windows.Forms.Timer activtyTimer;
+        internal System.Windows.Forms.Panel ActivitiesDisplay;
     }
 }
 

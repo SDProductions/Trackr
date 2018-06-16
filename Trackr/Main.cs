@@ -24,7 +24,8 @@ namespace Trackr
             {
                 for (int p = 0; p < activities.Count(); p++)
                 {
-                    var control = Controls[Controls.IndexOf(activities[p])];
+                    var controls = Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls;
+                    var control = controls[controls.IndexOf(activities[p])];
                     control.Location = new Point(
                         control.Location.X,
                         control.Location.Y + 60);
@@ -38,7 +39,7 @@ namespace Trackr
             Random rnd = new Random();
             var newPanel = new ActivityPanel
             {
-                Location = new Point(0, 110)
+                Location = new Point(0, 0)
             };
             if (InputActivity.Text != "What are you doing?")
             {
@@ -51,7 +52,7 @@ namespace Trackr
             newPanel.ProjectColor.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
 
             activities.Add(newPanel);
-            Controls.Add(newPanel);
+            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(newPanel);
 
             activeActivity = newPanel;
             activtyTimer.Start();
@@ -128,8 +129,8 @@ namespace Trackr
         private void activtyTimer_Tick(object sender, EventArgs e)
         {
             activities.Remove(activeActivity);
-            Controls.Remove(activeActivity);
-            
+            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Remove(activeActivity);
+
             secondsElapsed++;
             if (secondsElapsed >= 60)
             {
@@ -171,7 +172,7 @@ namespace Trackr
             activeActivity.ActivityTime.Text = $"{timeConstruct}s";
 
             activities.Add(activeActivity);
-            Controls.Add(activeActivity);
+            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(activeActivity);
         }
     }
 }
