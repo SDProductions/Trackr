@@ -55,7 +55,7 @@ namespace Trackr
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(newPanel);
 
             activeActivity = newPanel;
-            activtyTimer.Start();
+            ActivtyTimer.Start();
             StartInputActivity.Text = "Stop";
             StartInputActivity.BackColor = Color.FromArgb(205, 198, 170);
         }
@@ -112,7 +112,7 @@ namespace Trackr
         {
             if (StartInputActivity.Text == "Stop")
             {
-                activtyTimer.Stop();
+                ActivtyTimer.Stop();
                 secondsElapsed = 0;
                 minutesElapsed = 0;
                 hoursElapsed = 0;
@@ -126,7 +126,7 @@ namespace Trackr
             }
         }
 
-        private void activtyTimer_Tick(object sender, EventArgs e)
+        private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
             activities.Remove(activeActivity);
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Remove(activeActivity);
@@ -173,6 +173,23 @@ namespace Trackr
 
             activities.Add(activeActivity);
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(activeActivity);
+        }
+
+        private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CloseEditor_Click(object sender, EventArgs e)
+        {
+            for (int p = 0; p < activities.Count; p++)
+            {
+                activities[p].ExpandActivityInfo.Text = ">";
+            }
+            for (int t = 0; t < 80; t++)
+            {
+                Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
+            }
         }
     }
 }

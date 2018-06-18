@@ -73,9 +73,9 @@ namespace Trackr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap home_icon {
+        internal static System.Drawing.Bitmap home {
             get {
-                object obj = ResourceManager.GetObject("home-icon", resourceCulture);
+                object obj = ResourceManager.GetObject("home", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
