@@ -41,18 +41,30 @@
             this.ClientControlBar = new System.Windows.Forms.PictureBox();
             this.EditorPanel = new System.Windows.Forms.Panel();
             this.CloseEditor = new System.Windows.Forms.Button();
-            this.EditorActivityTitleLabel = new System.Windows.Forms.Label();
+            this.EditorHeader_ActivityTitle = new System.Windows.Forms.Label();
             this.EditorActivityTitle = new System.Windows.Forms.TextBox();
             this.EditorTitle = new System.Windows.Forms.Label();
             this.ProjectColorSideBar = new System.Windows.Forms.PictureBox();
             this.EditorControlBar = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.EditorTimeStart = new System.Windows.Forms.TextBox();
+            this.EditorHeader_Time = new System.Windows.Forms.Label();
             this.EditorSplitter = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.EditorTimeEnd = new System.Windows.Forms.TextBox();
+            this.EditorHeader_Project = new System.Windows.Forms.Label();
+            this.EditorSplitter2 = new System.Windows.Forms.PictureBox();
+            this.EditorProjectSelector = new System.Windows.Forms.ComboBox();
+            this.EditorAddProject = new System.Windows.Forms.Button();
+            this.EditorLabel_ProjectSelector = new System.Windows.Forms.Label();
+            this.EditorActivityID = new System.Windows.Forms.Label();
+            this.EditorLabel_ProjectColor = new System.Windows.Forms.Label();
+            this.EditorLabel_ColorR = new System.Windows.Forms.Label();
+            this.EditorProjectColorRGB_R = new System.Windows.Forms.NumericUpDown();
+            this.EditorLabel_ColorG = new System.Windows.Forms.Label();
+            this.EditorProjectColorRGB_G = new System.Windows.Forms.NumericUpDown();
+            this.EditorLabel_ColorB = new System.Windows.Forms.Label();
+            this.EditorProjectColorRGB_B = new System.Windows.Forms.NumericUpDown();
+            this.EditorLabel_StartTime = new System.Windows.Forms.Label();
+            this.EditorLabel_EndTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).BeginInit();
@@ -61,7 +73,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProjectColorSideBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorControlBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_R)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_G)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_B)).BeginInit();
             this.SuspendLayout();
             // 
             // ClientTitle
@@ -179,15 +194,27 @@
             // EditorPanel
             // 
             this.EditorPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.EditorPanel.Controls.Add(this.comboBox1);
-            this.EditorPanel.Controls.Add(this.pictureBox1);
-            this.EditorPanel.Controls.Add(this.label2);
-            this.EditorPanel.Controls.Add(this.textBox2);
+            this.EditorPanel.Controls.Add(this.EditorLabel_EndTime);
+            this.EditorPanel.Controls.Add(this.EditorLabel_StartTime);
+            this.EditorPanel.Controls.Add(this.EditorProjectColorRGB_B);
+            this.EditorPanel.Controls.Add(this.EditorLabel_ColorB);
+            this.EditorPanel.Controls.Add(this.EditorProjectColorRGB_G);
+            this.EditorPanel.Controls.Add(this.EditorLabel_ColorG);
+            this.EditorPanel.Controls.Add(this.EditorProjectColorRGB_R);
+            this.EditorPanel.Controls.Add(this.EditorLabel_ColorR);
+            this.EditorPanel.Controls.Add(this.EditorLabel_ProjectColor);
+            this.EditorPanel.Controls.Add(this.EditorActivityID);
+            this.EditorPanel.Controls.Add(this.EditorLabel_ProjectSelector);
+            this.EditorPanel.Controls.Add(this.EditorAddProject);
+            this.EditorPanel.Controls.Add(this.EditorProjectSelector);
+            this.EditorPanel.Controls.Add(this.EditorSplitter2);
+            this.EditorPanel.Controls.Add(this.EditorHeader_Project);
+            this.EditorPanel.Controls.Add(this.EditorTimeEnd);
             this.EditorPanel.Controls.Add(this.EditorSplitter);
-            this.EditorPanel.Controls.Add(this.label1);
-            this.EditorPanel.Controls.Add(this.textBox1);
+            this.EditorPanel.Controls.Add(this.EditorHeader_Time);
+            this.EditorPanel.Controls.Add(this.EditorTimeStart);
             this.EditorPanel.Controls.Add(this.CloseEditor);
-            this.EditorPanel.Controls.Add(this.EditorActivityTitleLabel);
+            this.EditorPanel.Controls.Add(this.EditorHeader_ActivityTitle);
             this.EditorPanel.Controls.Add(this.EditorActivityTitle);
             this.EditorPanel.Controls.Add(this.EditorTitle);
             this.EditorPanel.Controls.Add(this.ProjectColorSideBar);
@@ -209,17 +236,17 @@
             this.CloseEditor.UseVisualStyleBackColor = false;
             this.CloseEditor.Click += new System.EventHandler(this.CloseEditor_Click);
             // 
-            // EditorActivityTitleLabel
+            // EditorHeader_ActivityTitle
             // 
-            this.EditorActivityTitleLabel.AutoSize = true;
-            this.EditorActivityTitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
-            this.EditorActivityTitleLabel.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditorActivityTitleLabel.ForeColor = System.Drawing.Color.Silver;
-            this.EditorActivityTitleLabel.Location = new System.Drawing.Point(17, 30);
-            this.EditorActivityTitleLabel.Name = "EditorActivityTitleLabel";
-            this.EditorActivityTitleLabel.Size = new System.Drawing.Size(73, 16);
-            this.EditorActivityTitleLabel.TabIndex = 3;
-            this.EditorActivityTitleLabel.Text = "Activity Title";
+            this.EditorHeader_ActivityTitle.AutoSize = true;
+            this.EditorHeader_ActivityTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
+            this.EditorHeader_ActivityTitle.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorHeader_ActivityTitle.ForeColor = System.Drawing.Color.Silver;
+            this.EditorHeader_ActivityTitle.Location = new System.Drawing.Point(17, 30);
+            this.EditorHeader_ActivityTitle.Name = "EditorHeader_ActivityTitle";
+            this.EditorHeader_ActivityTitle.Size = new System.Drawing.Size(73, 16);
+            this.EditorHeader_ActivityTitle.TabIndex = 3;
+            this.EditorHeader_ActivityTitle.Text = "Activity Title";
             // 
             // EditorActivityTitle
             // 
@@ -264,30 +291,30 @@
             this.EditorControlBar.TabIndex = 13;
             this.EditorControlBar.TabStop = false;
             // 
-            // textBox1
+            // EditorTimeStart
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox1.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBox1.Location = new System.Drawing.Point(91, 115);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(85, 25);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.Text = "12:00AM";
+            this.EditorTimeStart.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorTimeStart.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EditorTimeStart.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.EditorTimeStart.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorTimeStart.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EditorTimeStart.Location = new System.Drawing.Point(91, 115);
+            this.EditorTimeStart.Name = "EditorTimeStart";
+            this.EditorTimeStart.Size = new System.Drawing.Size(85, 25);
+            this.EditorTimeStart.TabIndex = 14;
+            this.EditorTimeStart.Text = "12:00 AM";
             // 
-            // label1
+            // EditorHeader_Time
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(17, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 16);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Time";
+            this.EditorHeader_Time.AutoSize = true;
+            this.EditorHeader_Time.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorHeader_Time.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorHeader_Time.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EditorHeader_Time.Location = new System.Drawing.Point(17, 85);
+            this.EditorHeader_Time.Name = "EditorHeader_Time";
+            this.EditorHeader_Time.Size = new System.Drawing.Size(31, 16);
+            this.EditorHeader_Time.TabIndex = 15;
+            this.EditorHeader_Time.Text = "Time";
             // 
             // EditorSplitter
             // 
@@ -298,47 +325,178 @@
             this.EditorSplitter.TabIndex = 16;
             this.EditorSplitter.TabStop = false;
             // 
-            // textBox2
+            // EditorTimeEnd
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox2.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBox2.Location = new System.Drawing.Point(232, 115);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(85, 25);
-            this.textBox2.TabIndex = 17;
-            this.textBox2.Text = "12:00PM";
+            this.EditorTimeEnd.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorTimeEnd.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EditorTimeEnd.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.EditorTimeEnd.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorTimeEnd.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EditorTimeEnd.Location = new System.Drawing.Point(225, 115);
+            this.EditorTimeEnd.Name = "EditorTimeEnd";
+            this.EditorTimeEnd.Size = new System.Drawing.Size(85, 25);
+            this.EditorTimeEnd.TabIndex = 17;
+            this.EditorTimeEnd.Text = "12:00 PM";
             // 
-            // label2
+            // EditorHeader_Project
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.Control;
-            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(17, 231);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 16);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Project";
+            this.EditorHeader_Project.AutoSize = true;
+            this.EditorHeader_Project.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorHeader_Project.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorHeader_Project.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EditorHeader_Project.Location = new System.Drawing.Point(17, 230);
+            this.EditorHeader_Project.Name = "EditorHeader_Project";
+            this.EditorHeader_Project.Size = new System.Drawing.Size(45, 16);
+            this.EditorHeader_Project.TabIndex = 18;
+            this.EditorHeader_Project.Text = "Project";
             // 
-            // pictureBox1
+            // EditorSplitter2
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 250);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(390, 1);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
+            this.EditorSplitter2.BackColor = System.Drawing.Color.Silver;
+            this.EditorSplitter2.Location = new System.Drawing.Point(10, 250);
+            this.EditorSplitter2.Name = "EditorSplitter2";
+            this.EditorSplitter2.Size = new System.Drawing.Size(390, 1);
+            this.EditorSplitter2.TabIndex = 19;
+            this.EditorSplitter2.TabStop = false;
             // 
-            // comboBox1
+            // EditorProjectSelector
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(20, 257);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(377, 21);
-            this.comboBox1.TabIndex = 20;
+            this.EditorProjectSelector.FormattingEnabled = true;
+            this.EditorProjectSelector.Location = new System.Drawing.Point(102, 257);
+            this.EditorProjectSelector.Name = "EditorProjectSelector";
+            this.EditorProjectSelector.Size = new System.Drawing.Size(274, 21);
+            this.EditorProjectSelector.TabIndex = 20;
+            // 
+            // EditorAddProject
+            // 
+            this.EditorAddProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditorAddProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorAddProject.Location = new System.Drawing.Point(374, 257);
+            this.EditorAddProject.Name = "EditorAddProject";
+            this.EditorAddProject.Size = new System.Drawing.Size(23, 21);
+            this.EditorAddProject.TabIndex = 21;
+            this.EditorAddProject.Text = "+";
+            this.EditorAddProject.UseVisualStyleBackColor = true;
+            this.EditorAddProject.Click += new System.EventHandler(this.EditorAddProject_Click);
+            // 
+            // EditorLabel_ProjectSelector
+            // 
+            this.EditorLabel_ProjectSelector.AutoSize = true;
+            this.EditorLabel_ProjectSelector.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_ProjectSelector.Location = new System.Drawing.Point(17, 260);
+            this.EditorLabel_ProjectSelector.Name = "EditorLabel_ProjectSelector";
+            this.EditorLabel_ProjectSelector.Size = new System.Drawing.Size(79, 16);
+            this.EditorLabel_ProjectSelector.TabIndex = 22;
+            this.EditorLabel_ProjectSelector.Text = "Project Name:";
+            // 
+            // EditorActivityID
+            // 
+            this.EditorActivityID.AutoSize = true;
+            this.EditorActivityID.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorActivityID.Location = new System.Drawing.Point(285, 478);
+            this.EditorActivityID.Name = "EditorActivityID";
+            this.EditorActivityID.Size = new System.Drawing.Size(103, 13);
+            this.EditorActivityID.TabIndex = 23;
+            this.EditorActivityID.Text = "ActivityID: 0000";
+            // 
+            // EditorLabel_ProjectColor
+            // 
+            this.EditorLabel_ProjectColor.AutoSize = true;
+            this.EditorLabel_ProjectColor.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_ProjectColor.Location = new System.Drawing.Point(17, 290);
+            this.EditorLabel_ProjectColor.Name = "EditorLabel_ProjectColor";
+            this.EditorLabel_ProjectColor.Size = new System.Drawing.Size(78, 16);
+            this.EditorLabel_ProjectColor.TabIndex = 24;
+            this.EditorLabel_ProjectColor.Text = "Project Color:";
+            // 
+            // EditorLabel_ColorR
+            // 
+            this.EditorLabel_ColorR.AutoSize = true;
+            this.EditorLabel_ColorR.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_ColorR.Location = new System.Drawing.Point(101, 290);
+            this.EditorLabel_ColorR.Name = "EditorLabel_ColorR";
+            this.EditorLabel_ColorR.Size = new System.Drawing.Size(14, 16);
+            this.EditorLabel_ColorR.TabIndex = 25;
+            this.EditorLabel_ColorR.Text = "R";
+            // 
+            // EditorProjectColorRGB_R
+            // 
+            this.EditorProjectColorRGB_R.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EditorProjectColorRGB_R.Location = new System.Drawing.Point(120, 289);
+            this.EditorProjectColorRGB_R.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.EditorProjectColorRGB_R.Name = "EditorProjectColorRGB_R";
+            this.EditorProjectColorRGB_R.Size = new System.Drawing.Size(55, 20);
+            this.EditorProjectColorRGB_R.TabIndex = 26;
+            // 
+            // EditorLabel_ColorG
+            // 
+            this.EditorLabel_ColorG.AutoSize = true;
+            this.EditorLabel_ColorG.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_ColorG.Location = new System.Drawing.Point(180, 290);
+            this.EditorLabel_ColorG.Name = "EditorLabel_ColorG";
+            this.EditorLabel_ColorG.Size = new System.Drawing.Size(15, 16);
+            this.EditorLabel_ColorG.TabIndex = 27;
+            this.EditorLabel_ColorG.Text = "G";
+            // 
+            // EditorProjectColorRGB_G
+            // 
+            this.EditorProjectColorRGB_G.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EditorProjectColorRGB_G.Location = new System.Drawing.Point(200, 289);
+            this.EditorProjectColorRGB_G.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.EditorProjectColorRGB_G.Name = "EditorProjectColorRGB_G";
+            this.EditorProjectColorRGB_G.Size = new System.Drawing.Size(55, 20);
+            this.EditorProjectColorRGB_G.TabIndex = 28;
+            // 
+            // EditorLabel_ColorB
+            // 
+            this.EditorLabel_ColorB.AutoSize = true;
+            this.EditorLabel_ColorB.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_ColorB.Location = new System.Drawing.Point(261, 290);
+            this.EditorLabel_ColorB.Name = "EditorLabel_ColorB";
+            this.EditorLabel_ColorB.Size = new System.Drawing.Size(14, 16);
+            this.EditorLabel_ColorB.TabIndex = 29;
+            this.EditorLabel_ColorB.Text = "B";
+            // 
+            // EditorProjectColorRGB_B
+            // 
+            this.EditorProjectColorRGB_B.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EditorProjectColorRGB_B.Location = new System.Drawing.Point(281, 289);
+            this.EditorProjectColorRGB_B.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.EditorProjectColorRGB_B.Name = "EditorProjectColorRGB_B";
+            this.EditorProjectColorRGB_B.Size = new System.Drawing.Size(55, 20);
+            this.EditorProjectColorRGB_B.TabIndex = 30;
+            // 
+            // EditorLabel_StartTime
+            // 
+            this.EditorLabel_StartTime.AutoSize = true;
+            this.EditorLabel_StartTime.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_StartTime.Location = new System.Drawing.Point(91, 140);
+            this.EditorLabel_StartTime.Name = "EditorLabel_StartTime";
+            this.EditorLabel_StartTime.Size = new System.Drawing.Size(60, 16);
+            this.EditorLabel_StartTime.TabIndex = 31;
+            this.EditorLabel_StartTime.Text = "Start Time";
+            // 
+            // EditorLabel_EndTime
+            // 
+            this.EditorLabel_EndTime.AutoSize = true;
+            this.EditorLabel_EndTime.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_EndTime.Location = new System.Drawing.Point(258, 140);
+            this.EditorLabel_EndTime.Name = "EditorLabel_EndTime";
+            this.EditorLabel_EndTime.Size = new System.Drawing.Size(52, 16);
+            this.EditorLabel_EndTime.TabIndex = 32;
+            this.EditorLabel_EndTime.Text = "End Time";
             // 
             // Main
             // 
@@ -359,6 +517,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Main";
             this.Text = "Trackr";
+            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).EndInit();
@@ -368,7 +527,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProjectColorSideBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorControlBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_R)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_G)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorProjectColorRGB_B)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,17 +551,29 @@
         private System.Windows.Forms.Panel EditorPanel;
         private System.Windows.Forms.PictureBox ProjectColorSideBar;
         private System.Windows.Forms.Label EditorTitle;
-        private System.Windows.Forms.Label EditorActivityTitleLabel;
+        private System.Windows.Forms.Label EditorHeader_ActivityTitle;
         private System.Windows.Forms.Button CloseEditor;
         private System.Windows.Forms.PictureBox EditorControlBar;
         private System.Windows.Forms.TextBox EditorActivityTitle;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox EditorProjectSelector;
+        private System.Windows.Forms.PictureBox EditorSplitter2;
+        private System.Windows.Forms.Label EditorHeader_Project;
+        private System.Windows.Forms.TextBox EditorTimeEnd;
         private System.Windows.Forms.PictureBox EditorSplitter;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label EditorHeader_Time;
+        private System.Windows.Forms.TextBox EditorTimeStart;
+        private System.Windows.Forms.Button EditorAddProject;
+        private System.Windows.Forms.Label EditorActivityID;
+        private System.Windows.Forms.Label EditorLabel_ProjectSelector;
+        private System.Windows.Forms.Label EditorLabel_ProjectColor;
+        private System.Windows.Forms.NumericUpDown EditorProjectColorRGB_G;
+        private System.Windows.Forms.Label EditorLabel_ColorG;
+        private System.Windows.Forms.NumericUpDown EditorProjectColorRGB_R;
+        private System.Windows.Forms.Label EditorLabel_ColorR;
+        private System.Windows.Forms.NumericUpDown EditorProjectColorRGB_B;
+        private System.Windows.Forms.Label EditorLabel_ColorB;
+        private System.Windows.Forms.Label EditorLabel_EndTime;
+        private System.Windows.Forms.Label EditorLabel_StartTime;
     }
 }
 

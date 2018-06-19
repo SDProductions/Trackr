@@ -12,6 +12,10 @@ namespace Trackr
 {
     public partial class ActivityPanel : UserControl
     {
+        public string activityID = "";
+        public string startTime = "--:-- --";
+        public string endTime = "00:00 PM";
+
         public ActivityPanel()
         {
             InitializeComponent();
@@ -42,6 +46,12 @@ namespace Trackr
                 Control colorSideBar = GetControl("ProjectColorSideBar");
                 colorSideBar.BackColor = ProjectColor.BackColor;
                 ReplaceEditorControl("ProjectColorSideBar", colorSideBar);
+                Control startTime = GetControl("EditorTimeStart");
+                startTime.Text = this.startTime;
+                ReplaceEditorControl("EditorTimeStart", startTime);
+                Control endTime = GetControl("EditorTimeEnd");
+                endTime.Text = this.endTime;
+                ReplaceEditorControl("EditorTimeEnd", endTime);
 
                 for (int t = 0; t < 80; t++)
                 {

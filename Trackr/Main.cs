@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +14,15 @@ namespace Trackr
 {
     public partial class Main : Form
     {
+        private string resourcesFolder = "Resources";
+        private string existingProjectsFile = "projects.json";
+
+        private string exportFolder = "Data";
+
         internal List<ActivityPanel> activities;
         internal ActivityPanel activeActivity;
+        internal List<Tuple<string, Color>> projects;
+
         internal int secondsElapsed = 0;
         internal int minutesElapsed = 0;
         internal int hoursElapsed = 0;
@@ -49,6 +58,8 @@ namespace Trackr
             {
                 newPanel.ActivityName.Text = "Unknown Activity";
             }
+            newPanel.startTime = DateTime.Now.ToShortTimeString();
+            newPanel.ProjectName.Text = "No Project";
             newPanel.ProjectColor.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
 
             activities.Add(newPanel);
@@ -63,6 +74,32 @@ namespace Trackr
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(resourcesFolder))
+                Directory.CreateDirectory(resourcesFolder);
+            if (!Directory.Exists(exportFolder))
+                Directory.CreateDirectory(exportFolder);
+
+            if (!File.Exists(resourcesFolder + @"\" + existingProjectsFile))
+            {
+                File.Create(resourcesFolder + @"\" + existingProjectsFile);
+            }
+            else
+            {
+                string json = File.ReadAllText(resourcesFolder + @"\" + existingProjectsFile);
+                projects = JsonConvert.DeserializeObject<List<Tuple<string, Color>>>(json);
+            }
+
+            if (projects != null)
+            {
+                for (int p = 0; p < projects.Count; p++)
+                {
+                    EditorProjectSelector.Items.Add(projects[p].Item1);
+                }
+            }
         }
 
         private void Minimize_Click(object sender, EventArgs e)
@@ -112,6 +149,7 @@ namespace Trackr
         {
             if (StartInputActivity.Text == "Stop")
             {
+                activeActivity.endTime = DateTime.Now.ToShortTimeString();
                 ActivtyTimer.Stop();
                 secondsElapsed = 0;
                 minutesElapsed = 0;
@@ -177,7 +215,15 @@ namespace Trackr
 
         private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
         {
+            //TODO: Update the ActivityPanel and other references to activity
+        }
 
+        private void EditorAddProject_Click(object sender, EventArgs e)
+        {
+            if (EditorProjectSelector.Text != null)
+            {
+
+            }
         }
 
         private void CloseEditor_Click(object sender, EventArgs e)
