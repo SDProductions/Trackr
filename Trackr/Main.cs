@@ -29,6 +29,8 @@ namespace Trackr
 
         internal void InitializeActivity()
         {
+            int newActivityID = 0;
+
             if (activities != null)
             {
                 for (int p = 0; p < activities.Count(); p++)
@@ -39,6 +41,8 @@ namespace Trackr
                         control.Location.X,
                         control.Location.Y + 60);
                 }
+
+                newActivityID = activities[(activities.Count - 1)].activityID + 1;
             }
             else
             {
@@ -58,9 +62,13 @@ namespace Trackr
             {
                 newPanel.ActivityName.Text = "Unknown Activity";
             }
+            newPanel.activityID = newActivityID;
             newPanel.startTime = DateTime.Now.ToShortTimeString();
             newPanel.ProjectName.Text = "No Project";
-            newPanel.ProjectColor.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+            var noProjectTuple = (from p in projects
+                                 where p.Item1 == "No Project"
+                                 select p).FirstOrDefault();
+            newPanel.ProjectColor.BackColor = noProjectTuple.Item2;
 
             activities.Add(newPanel);
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(newPanel);
@@ -95,6 +103,16 @@ namespace Trackr
 
             if (projects != null)
             {
+                for (int p = 0; p < projects.Count; p++)
+                {
+                    EditorProjectSelector.Items.Add(projects[p].Item1);
+                }
+            }
+            else
+            {
+                projects = new List<Tuple<string, Color>>();
+                projects.Add(new Tuple<string, Color>("No Project", Color.Gray));
+                EditorProjectSelector.Items.Clear();
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
@@ -215,15 +233,35 @@ namespace Trackr
 
         private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
         {
-            //TODO: Update the ActivityPanel and other references to activity
+            var editorSelectedActivity = from a in activities
+                                         where a.activityID == int.Parse(EditorActivityID.Text)
+                                         select a;
+            editorSelectedActivity.ElementAt(0).ActivityName.Text = EditorActivityTitle.Text;
         }
 
         private void EditorAddProject_Click(object sender, EventArgs e)
         {
-            if (EditorProjectSelector.Text != null)
+            if (EditorProjectSelector.Text != "")
             {
+                int projR = int.Parse(EditorProjectColorRGB_R.Value.ToString());
+                int projG = int.Parse(EditorProjectColorRGB_G.Value.ToString());
+                int projB = int.Parse(EditorProjectColorRGB_B.Value.ToString());
+                Tuple<string, Color> newProject = new Tuple<string, Color>(EditorProjectSelector.Text, Color.FromArgb(projR, projG, projB));
+                projects.Add(newProject);
 
+                EditorProjectSelector.Items.Clear();
+                for (int p = 0; p < projects.Count; p++)
+                {
+                    EditorProjectSelector.Items.Add(projects[p].Item1);
+                }
             }
+        }
+
+        public void EditorChangeProjectRGB(Color color)
+        {
+            EditorProjectColorRGB_R.Value = color.R;
+            EditorProjectColorRGB_G.Value = color.G;
+            EditorProjectColorRGB_B.Value = color.B;
         }
 
         private void CloseEditor_Click(object sender, EventArgs e)
