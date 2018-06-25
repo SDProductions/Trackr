@@ -221,22 +221,74 @@ namespace Trackr
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(activeActivity);
         }
 
-        private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
+        private dynamic editSelectedActivity()
         {
-            var editorSelectedActivity = from a in activities
-                                         where a.activityID == int.Parse(EditorActivityID.Text)
-                                         select a;
-            editorSelectedActivity.ElementAt(0).ActivityName.Text = EditorActivityTitle.Text;
+            return (from a in activities
+                    where a.activityID == int.Parse(EditorActivityID.Text)
+                    select a).FirstOrDefault();
         }
 
-        private void EditorProjectSelector_TextChanged(object sender, EventArgs e)
+        private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
         {
+            editSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
+        }
+        
+        public void EditorChangeProjectRGB(Color color)
+        {
+            EditorProjectColorRGB_R.Value = color.R;
+            EditorProjectColorRGB_G.Value = color.G;
+            EditorProjectColorRGB_B.Value = color.B;
+        }
 
+        private void EditorProjectSelector_SelectionChanged(object sender, EventArgs e)
+        {
+            editSelectedActivity().ProjectName.Text = EditorProjectSelector.Text;
+            if (EditorProjectSelector.Items.Contains(editSelectedActivity().ProjectName.Text))
+            {
+                var targetProject = (from p in projects
+                                     where p.Item1 == editSelectedActivity().ProjectName.Text
+                                     select p).FirstOrDefault();
+                editSelectedActivity().ProjectColor.BackColor = targetProject.Item2;
+                ProjectColorSideBar.BackColor = targetProject.Item2;
+                EditorChangeProjectRGB(targetProject.Item2);
+            }
+        }
+
+        private void EditorProjectColorRGB_ValueChanged(object sender, EventArgs e)
+        {
+            int RGB_R = int.Parse(EditorProjectColorRGB_R.Value.ToString());
+            int RGB_G = int.Parse(EditorProjectColorRGB_G.Value.ToString());
+            int RGB_B = int.Parse(EditorProjectColorRGB_B.Value.ToString());
+            Color newColor = Color.FromArgb(RGB_R, RGB_G, RGB_B);
+
+            editSelectedActivity().ProjectColor.BackColor = newColor;
+            ProjectColorSideBar.BackColor = newColor;
+            EditorChangeProjectRGB(newColor);
+
+            var targetProject = (from p in projects
+                                 where p.Item1 == editSelectedActivity().ProjectName.Text
+                                 select p).FirstOrDefault();
+            projects.Remove(targetProject);
+            projects.Add(new Tuple<string, Color>(targetProject.Item1, newColor));
+
+            EditorProjectSelector.Items.Clear();
+            for (int p = 0; p < projects.Count; p++)
+            {
+                EditorProjectSelector.Items.Add(projects[p].Item1);
+            }
+
+            for (int a = 0; a < activities.Count; a++)
+            {
+                if (activities[a].ProjectName.Text == targetProject.Item1)
+                {
+                    activities[a].ProjectColor.BackColor = newColor;
+                }
+            }
         }
 
         private void EditorAddProject_Click(object sender, EventArgs e)
         {
-            if (EditorProjectSelector.Text != "")
+            if (EditorProjectSelector.Text != "" && !EditorProjectSelector.Items.Contains(EditorProjectSelector.Text))
             {
                 int projR = int.Parse(EditorProjectColorRGB_R.Value.ToString());
                 int projG = int.Parse(EditorProjectColorRGB_G.Value.ToString());
@@ -250,13 +302,6 @@ namespace Trackr
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                 }
             }
-        }
-
-        public void EditorChangeProjectRGB(Color color)
-        {
-            EditorProjectColorRGB_R.Value = color.R;
-            EditorProjectColorRGB_G.Value = color.G;
-            EditorProjectColorRGB_B.Value = color.B;
         }
 
         private void CloseEditor_Click(object sender, EventArgs e)

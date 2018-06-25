@@ -220,6 +220,7 @@
             this.EditorProjectColorRGB_B.Name = "EditorProjectColorRGB_B";
             this.EditorProjectColorRGB_B.Size = new System.Drawing.Size(55, 20);
             this.EditorProjectColorRGB_B.TabIndex = 30;
+            this.EditorProjectColorRGB_B.ValueChanged += new System.EventHandler(this.EditorProjectColorRGB_ValueChanged);
             // 
             // EditorLabel_ColorB
             // 
@@ -243,6 +244,7 @@
             this.EditorProjectColorRGB_G.Name = "EditorProjectColorRGB_G";
             this.EditorProjectColorRGB_G.Size = new System.Drawing.Size(55, 20);
             this.EditorProjectColorRGB_G.TabIndex = 28;
+            this.EditorProjectColorRGB_G.ValueChanged += new System.EventHandler(this.EditorProjectColorRGB_ValueChanged);
             // 
             // EditorLabel_ColorG
             // 
@@ -266,6 +268,7 @@
             this.EditorProjectColorRGB_R.Name = "EditorProjectColorRGB_R";
             this.EditorProjectColorRGB_R.Size = new System.Drawing.Size(55, 20);
             this.EditorProjectColorRGB_R.TabIndex = 26;
+            this.EditorProjectColorRGB_R.ValueChanged += new System.EventHandler(this.EditorProjectColorRGB_ValueChanged);
             // 
             // EditorLabel_ColorR
             // 
@@ -326,7 +329,8 @@
             this.EditorProjectSelector.Name = "EditorProjectSelector";
             this.EditorProjectSelector.Size = new System.Drawing.Size(274, 21);
             this.EditorProjectSelector.TabIndex = 20;
-            this.EditorProjectSelector.TextChanged += new System.EventHandler(this.EditorProjectSelector_TextChanged);
+            this.EditorProjectSelector.SelectionChangeCommitted += new System.EventHandler(this.EditorProjectSelector_SelectionChanged);
+            this.EditorProjectSelector.TextChanged += new System.EventHandler(this.EditorProjectSelector_SelectionChanged);
             // 
             // EditorSplitter2
             // 
