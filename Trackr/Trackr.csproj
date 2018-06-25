@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\close.png" />
+    <None Include="Resources\close1.png" />
     <Content Include="Resources\minimize.png" />
     <None Include="Resources\sdp-ico.ico" />
     <None Include="Resources\sdp-ico.png" />

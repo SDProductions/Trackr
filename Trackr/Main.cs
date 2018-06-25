@@ -103,7 +103,7 @@ namespace Trackr
 
             if (projects != null)
             {
-                for (int p = 0; p < projects.Count; p++)
+                for (int p = projects.Count - 1; p >= 0; p--)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                 }
@@ -120,34 +120,24 @@ namespace Trackr
             }
         }
 
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            (sender as Control).BackColor = Color.FromArgb(30, 35, 45);
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as Control).BackColor = Color.FromArgb(20, 25, 35);
+        }
+
         private void Minimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        private void Minimize_MouseEnter(object sender, EventArgs e)
-        {
-            Minimize.BackColor = Color.FromArgb(30, 35, 45);
-        }
-
-        private void Minimize_MouseLeave(object sender, EventArgs e)
-        {
-            Minimize.BackColor = Color.FromArgb(20, 25, 35);
-        }
-
         private void Maximize_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void Maximize_MouseEnter(object sender, EventArgs e)
-        {
-            Maximize.BackColor = Color.FromArgb(30, 35, 45);
-        }
-
-        private void Maximize_MouseLeave(object sender, EventArgs e)
-        {
-            Maximize.BackColor = Color.FromArgb(20, 25, 35);
         }
 
         private void ClientControlBar_MouseMove(object sender, MouseEventArgs e)
@@ -237,6 +227,11 @@ namespace Trackr
                                          where a.activityID == int.Parse(EditorActivityID.Text)
                                          select a;
             editorSelectedActivity.ElementAt(0).ActivityName.Text = EditorActivityTitle.Text;
+        }
+
+        private void EditorProjectSelector_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void EditorAddProject_Click(object sender, EventArgs e)

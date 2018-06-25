@@ -51,16 +51,16 @@
             this.EditorLabel_ProjectSelector = new System.Windows.Forms.Label();
             this.EditorAddProject = new System.Windows.Forms.Button();
             this.EditorProjectSelector = new System.Windows.Forms.ComboBox();
+            this.EditorSplitter2 = new System.Windows.Forms.PictureBox();
             this.EditorHeader_Project = new System.Windows.Forms.Label();
             this.EditorTimeEnd = new System.Windows.Forms.TextBox();
+            this.EditorSplitter = new System.Windows.Forms.PictureBox();
             this.EditorHeader_Time = new System.Windows.Forms.Label();
             this.EditorTimeStart = new System.Windows.Forms.TextBox();
             this.CloseEditor = new System.Windows.Forms.Button();
             this.EditorHeader_ActivityTitle = new System.Windows.Forms.Label();
             this.EditorActivityTitle = new System.Windows.Forms.TextBox();
             this.EditorTitle = new System.Windows.Forms.Label();
-            this.EditorSplitter2 = new System.Windows.Forms.PictureBox();
-            this.EditorSplitter = new System.Windows.Forms.PictureBox();
             this.ProjectColorSideBar = new System.Windows.Forms.PictureBox();
             this.EditorControlBar = new System.Windows.Forms.PictureBox();
             this.Minimize = new System.Windows.Forms.PictureBox();
@@ -326,6 +326,16 @@
             this.EditorProjectSelector.Name = "EditorProjectSelector";
             this.EditorProjectSelector.Size = new System.Drawing.Size(274, 21);
             this.EditorProjectSelector.TabIndex = 20;
+            this.EditorProjectSelector.TextChanged += new System.EventHandler(this.EditorProjectSelector_TextChanged);
+            // 
+            // EditorSplitter2
+            // 
+            this.EditorSplitter2.BackColor = System.Drawing.Color.Silver;
+            this.EditorSplitter2.Location = new System.Drawing.Point(10, 250);
+            this.EditorSplitter2.Name = "EditorSplitter2";
+            this.EditorSplitter2.Size = new System.Drawing.Size(390, 1);
+            this.EditorSplitter2.TabIndex = 19;
+            this.EditorSplitter2.TabStop = false;
             // 
             // EditorHeader_Project
             // 
@@ -351,6 +361,15 @@
             this.EditorTimeEnd.Size = new System.Drawing.Size(85, 25);
             this.EditorTimeEnd.TabIndex = 17;
             this.EditorTimeEnd.Text = "11:59 PM";
+            // 
+            // EditorSplitter
+            // 
+            this.EditorSplitter.BackColor = System.Drawing.Color.Silver;
+            this.EditorSplitter.Location = new System.Drawing.Point(10, 105);
+            this.EditorSplitter.Name = "EditorSplitter";
+            this.EditorSplitter.Size = new System.Drawing.Size(390, 1);
+            this.EditorSplitter.TabIndex = 16;
+            this.EditorSplitter.TabStop = false;
             // 
             // EditorHeader_Time
             // 
@@ -379,15 +398,19 @@
             // 
             // CloseEditor
             // 
-            this.CloseEditor.BackColor = System.Drawing.Color.Cornsilk;
+            this.CloseEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
+            this.CloseEditor.BackgroundImage = global::Trackr.Properties.Resources.closeeditor;
+            this.CloseEditor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CloseEditor.FlatAppearance.BorderSize = 0;
             this.CloseEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseEditor.Location = new System.Drawing.Point(372, 2);
             this.CloseEditor.Name = "CloseEditor";
             this.CloseEditor.Size = new System.Drawing.Size(25, 25);
             this.CloseEditor.TabIndex = 4;
-            this.CloseEditor.Text = "<";
             this.CloseEditor.UseVisualStyleBackColor = false;
             this.CloseEditor.Click += new System.EventHandler(this.CloseEditor_Click);
+            this.CloseEditor.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.CloseEditor.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // EditorHeader_ActivityTitle
             // 
@@ -426,24 +449,6 @@
             this.EditorTitle.TabIndex = 1;
             this.EditorTitle.Text = "Extended Activity Information";
             // 
-            // EditorSplitter2
-            // 
-            this.EditorSplitter2.BackColor = System.Drawing.Color.Silver;
-            this.EditorSplitter2.Location = new System.Drawing.Point(10, 250);
-            this.EditorSplitter2.Name = "EditorSplitter2";
-            this.EditorSplitter2.Size = new System.Drawing.Size(390, 1);
-            this.EditorSplitter2.TabIndex = 19;
-            this.EditorSplitter2.TabStop = false;
-            // 
-            // EditorSplitter
-            // 
-            this.EditorSplitter.BackColor = System.Drawing.Color.Silver;
-            this.EditorSplitter.Location = new System.Drawing.Point(10, 105);
-            this.EditorSplitter.Name = "EditorSplitter";
-            this.EditorSplitter.Size = new System.Drawing.Size(390, 1);
-            this.EditorSplitter.TabIndex = 16;
-            this.EditorSplitter.TabStop = false;
-            // 
             // ProjectColorSideBar
             // 
             this.ProjectColorSideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
@@ -473,8 +478,8 @@
             this.Minimize.TabIndex = 5;
             this.Minimize.TabStop = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
-            this.Minimize.MouseEnter += new System.EventHandler(this.Minimize_MouseEnter);
-            this.Minimize.MouseLeave += new System.EventHandler(this.Minimize_MouseLeave);
+            this.Minimize.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Minimize.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // Maximize
             // 
@@ -487,8 +492,8 @@
             this.Maximize.TabIndex = 4;
             this.Maximize.TabStop = false;
             this.Maximize.Click += new System.EventHandler(this.Maximize_Click);
-            this.Maximize.MouseEnter += new System.EventHandler(this.Maximize_MouseEnter);
-            this.Maximize.MouseLeave += new System.EventHandler(this.Maximize_MouseLeave);
+            this.Maximize.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Maximize.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // ClientIcon
             // 
