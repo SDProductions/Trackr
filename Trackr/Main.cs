@@ -22,6 +22,7 @@ namespace Trackr
         internal List<ActivityPanel> activities;
         internal ActivityPanel activeActivity;
         internal List<Tuple<string, Color>> projects;
+        internal List<Tuple<int, Point>> editors; 
 
         internal int secondsElapsed = 0;
         internal int minutesElapsed = 0;
@@ -76,7 +77,7 @@ namespace Trackr
             activeActivity = newPanel;
             ActivtyTimer.Start();
             StartInputActivity.Text = "Stop";
-            StartInputActivity.BackColor = Color.FromArgb(205, 198, 170);
+            StartInputActivity.BackColor = Color.FromArgb(47, 67, 94);
         }
 
         public Main()
@@ -112,7 +113,6 @@ namespace Trackr
             {
                 projects = new List<Tuple<string, Color>>();
                 projects.Add(new Tuple<string, Color>("No Project", Color.Gray));
-                EditorProjectSelector.Items.Clear();
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
@@ -163,7 +163,7 @@ namespace Trackr
                 minutesElapsed = 0;
                 hoursElapsed = 0;
                 InputActivity.Text = "What are you doing?";
-                StartInputActivity.BackColor = Color.Cornsilk;
+                StartInputActivity.BackColor = Color.FromArgb(67, 87, 114);
                 StartInputActivity.Text = "Start";
             }
             else
@@ -221,7 +221,7 @@ namespace Trackr
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(activeActivity);
         }
 
-        private dynamic editSelectedActivity()
+        private dynamic EditSelectedActivity()
         {
             return (from a in activities
                     where a.activityID == int.Parse(EditorActivityID.Text)
@@ -230,7 +230,7 @@ namespace Trackr
 
         private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
         {
-            editSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
+            EditSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
         }
         
         public void EditorChangeProjectRGB(Color color)
@@ -242,31 +242,31 @@ namespace Trackr
 
         private void EditorProjectSelector_SelectionChanged(object sender, EventArgs e)
         {
-            editSelectedActivity().ProjectName.Text = EditorProjectSelector.Text;
-            if (EditorProjectSelector.Items.Contains(editSelectedActivity().ProjectName.Text))
+            EditSelectedActivity().ProjectName.Text = EditorProjectSelector.Text;
+            if (EditorProjectSelector.Items.Contains(EditSelectedActivity().ProjectName.Text))
             {
                 var targetProject = (from p in projects
-                                     where p.Item1 == editSelectedActivity().ProjectName.Text
+                                     where p.Item1 == EditSelectedActivity().ProjectName.Text
                                      select p).FirstOrDefault();
-                editSelectedActivity().ProjectColor.BackColor = targetProject.Item2;
+                EditSelectedActivity().ProjectColor.BackColor = targetProject.Item2;
                 ProjectColorSideBar.BackColor = targetProject.Item2;
                 EditorChangeProjectRGB(targetProject.Item2);
             }
         }
 
-        private void EditorProjectColorRGB_ValueChanged(object sender, EventArgs e)
+        private void EditorProjectColorRGB_UpdateColor(object sender, EventArgs e)
         {
             int RGB_R = int.Parse(EditorProjectColorRGB_R.Value.ToString());
             int RGB_G = int.Parse(EditorProjectColorRGB_G.Value.ToString());
             int RGB_B = int.Parse(EditorProjectColorRGB_B.Value.ToString());
             Color newColor = Color.FromArgb(RGB_R, RGB_G, RGB_B);
 
-            editSelectedActivity().ProjectColor.BackColor = newColor;
+            EditSelectedActivity().ProjectColor.BackColor = newColor;
             ProjectColorSideBar.BackColor = newColor;
             EditorChangeProjectRGB(newColor);
 
             var targetProject = (from p in projects
-                                 where p.Item1 == editSelectedActivity().ProjectName.Text
+                                 where p.Item1 == EditSelectedActivity().ProjectName.Text
                                  select p).FirstOrDefault();
             projects.Remove(targetProject);
             projects.Add(new Tuple<string, Color>(targetProject.Item1, newColor));
