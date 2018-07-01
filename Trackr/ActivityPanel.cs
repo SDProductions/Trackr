@@ -15,6 +15,9 @@ namespace Trackr
         public int activityID = -1;
         public string startTime = "--:-- --";
         public string endTime = "00:00 PM";
+        public int day = 1;
+        public string month = "JAN";
+        public string details = "None!";
 
         public ActivityPanel()
         {
@@ -55,6 +58,13 @@ namespace Trackr
                 startTime.Text = this.startTime;
                 Control endTime = GetControl("EditorTimeEnd");
                 endTime.Text = this.endTime;
+                Control day = GetControl("EditorCalendarDay");
+                day.Text = this.day.ToString();
+                Control month = GetControl("EditorCalendarMonth");
+                month.Text = this.month;
+
+                Control details = GetControl("EditorActivityDetails");
+                details.Text = this.details;
 
                 for (int t = 0; t < 80; t++)
                 {

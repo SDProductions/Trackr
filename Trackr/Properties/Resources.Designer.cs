@@ -73,9 +73,19 @@ namespace Trackr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap closeeditor {
+        internal static System.Drawing.Bitmap close_editor {
             get {
-                object obj = ResourceManager.GetObject("closeeditor", resourceCulture);
+                object obj = ResourceManager.GetObject("close_editor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap googlematerial_calendar {
+            get {
+                object obj = ResourceManager.GetObject("googlematerial_calendar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +113,9 @@ namespace Trackr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap programico {
+        internal static System.Drawing.Bitmap program_ico {
             get {
-                object obj = ResourceManager.GetObject("programico", resourceCulture);
+                object obj = ResourceManager.GetObject("program_ico", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

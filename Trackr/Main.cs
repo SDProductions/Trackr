@@ -22,11 +22,12 @@ namespace Trackr
         internal List<ActivityPanel> activities;
         internal ActivityPanel activeActivity;
         internal List<Tuple<string, Color>> projects;
-        internal List<Tuple<int, Point>> editors; 
 
         internal int secondsElapsed = 0;
         internal int minutesElapsed = 0;
         internal int hoursElapsed = 0;
+
+        internal string[] monthCodes = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
         internal void InitializeActivity()
         {
@@ -65,6 +66,8 @@ namespace Trackr
             }
             newPanel.activityID = newActivityID;
             newPanel.startTime = DateTime.Now.ToShortTimeString();
+            newPanel.day = DateTime.Today.Day;
+            newPanel.month = monthCodes[DateTime.Today.Month - 1];
             newPanel.ProjectName.Text = "No Project";
             var noProjectTuple = (from p in projects
                                  where p.Item1 == "No Project"
@@ -111,8 +114,10 @@ namespace Trackr
             }
             else
             {
-                projects = new List<Tuple<string, Color>>();
-                projects.Add(new Tuple<string, Color>("No Project", Color.Gray));
+                projects = new List<Tuple<string, Color>>
+                {
+                    new Tuple<string, Color>("No Project", Color.Gray)
+                };
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
@@ -232,7 +237,31 @@ namespace Trackr
         {
             EditSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
         }
-        
+
+        private void EditorDateNext_Click(object sender, EventArgs e)
+        {
+            DateTime storedDate = new DateTime(DateTime.Now.Year,
+                                               monthCodes.ToList<string>().IndexOf(EditSelectedActivity().month),
+                                               EditSelectedActivity().day);
+            EditSelectedActivity().day = storedDate.AddDays(1).Day;
+            EditSelectedActivity().month = monthCodes[storedDate.AddDays(1).Month];
+
+            EditorCalendarDay.Text = EditSelectedActivity().day.ToString();
+            EditorCalendarMonth.Text = EditSelectedActivity().month.ToString();
+        }
+
+        private void EditorDatePrevious_Click(object sender, EventArgs e)
+        {
+            DateTime storedDate = new DateTime(DateTime.Now.Year,
+                                              monthCodes.ToList<string>().IndexOf(EditSelectedActivity().month),
+                                              EditSelectedActivity().day);
+            EditSelectedActivity().day = storedDate.AddDays(-1).Day;
+            EditSelectedActivity().month = monthCodes[storedDate.AddDays(-1).Month];
+
+            EditorCalendarDay.Text = EditSelectedActivity().day.ToString();
+            EditorCalendarMonth.Text = EditSelectedActivity().month.ToString();
+        }
+
         public void EditorChangeProjectRGB(Color color)
         {
             EditorProjectColorRGB_R.Value = color.R;
@@ -288,12 +317,32 @@ namespace Trackr
 
         private void EditorAddProject_Click(object sender, EventArgs e)
         {
-            if (EditorProjectSelector.Text != "" && !EditorProjectSelector.Items.Contains(EditorProjectSelector.Text))
+            EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, 0);
+            EditorAddProjectPanel.Visible = true;
+            for (int h = 0; h <= 185; h++)
             {
-                int projR = int.Parse(EditorProjectColorRGB_R.Value.ToString());
-                int projG = int.Parse(EditorProjectColorRGB_G.Value.ToString());
-                int projB = int.Parse(EditorProjectColorRGB_B.Value.ToString());
-                Tuple<string, Color> newProject = new Tuple<string, Color>(EditorProjectSelector.Text, Color.FromArgb(projR, projG, projB));
+                EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, h);
+            }
+        }
+
+        private void EditorCancelAddProject_Click(object sender, EventArgs e)
+        {
+            EditorNewProjectName.Text = "";
+            for (int h = 185; h >= 0; h--)
+            {
+                EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, h);
+            }
+            EditorAddProjectPanel.Visible = false;
+        }
+
+        private void EditorConfirmAddProject_Click(object sender, EventArgs e)
+        {
+            if (EditorNewProjectName.Text != "" && !EditorProjectSelector.Items.Contains(EditorNewProjectName.Text))
+            {
+                int projR = int.Parse(EditorNewProjectColorRGB_R.Value.ToString());
+                int projG = int.Parse(EditorNewProjectColorRGB_G.Value.ToString());
+                int projB = int.Parse(EditorNewProjectColorRGB_B.Value.ToString());
+                Tuple<string, Color> newProject = new Tuple<string, Color>(EditorNewProjectName.Text, Color.FromArgb(projR, projG, projB));
                 projects.Add(newProject);
 
                 EditorProjectSelector.Items.Clear();
@@ -301,7 +350,24 @@ namespace Trackr
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                 }
+                EditorNewProjectName.Text = "";
+                EditorNewProjectColorRGB_R.Value = 0;
+                EditorNewProjectColorRGB_G.Value = 0;
+                EditorNewProjectColorRGB_B.Value = 0;
             }
+        }
+
+        private void EditorActivityDetails_Click(object sender, EventArgs e)
+        {
+            if (EditorActivityDetails.Text == "None!")
+            {
+                EditorActivityDetails.Text = "";
+            }
+        }
+
+        private void EditorActivityDetails_TextChanged(object sender, EventArgs e)
+        {
+            EditSelectedActivity().details = EditorActivityDetails.Text;
         }
 
         private void CloseEditor_Click(object sender, EventArgs e)
