@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -380,6 +381,60 @@ namespace Trackr
             {
                 Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
             }
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string json = JsonConvert.SerializeObject(projects);
+            File.WriteAllText(resourcesFolder + @"\" + existingProjectsFile, json);
+        }
+
+        struct ExportInfo
+        {
+            public string name;
+            public string startTime;
+            public string endTime;
+            public int day;
+            public string month;
+
+            public string projName;
+            public Color projColor;
+
+            public string details;
+        }
+
+        private void ExportDataButton_Click(object sender, EventArgs e)
+        {
+            string newExportFolder = exportFolder + @"\" + DateTime.Today.Month + "-" + DateTime.Today.Day;
+            if (!Directory.Exists(newExportFolder))
+            {
+                Directory.CreateDirectory(newExportFolder);
+            }
+            string newFilePath = newExportFolder + @"\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute;
+
+            List<ExportInfo> toExport = new List<ExportInfo>();
+
+            for (int a = 0; a < activities.Count; a++)
+            {
+                ActivityPanel selected = activities[a];
+                ExportInfo exportInfo = new ExportInfo
+                {
+                    name = selected.ActivityName.Text,
+                    startTime = selected.startTime,
+                    endTime = selected.endTime,
+                    day = selected.day,
+                    month = selected.month,
+                    projName = selected.ProjectName.Text,
+                    projColor = selected.ProjectColor.BackColor,
+                    details = selected.details
+                };
+                toExport.Add(exportInfo);
+            }
+
+            string json = JsonConvert.SerializeObject(toExport, Formatting.Indented);
+            Thread.Sleep(1000);
+            File.WriteAllText(newFilePath + "-export.json", json);
+            File.WriteAllText(newFilePath + "-export-plaintext.txt", json);
         }
     }
 }

@@ -92,6 +92,7 @@
             this.Maximize = new System.Windows.Forms.PictureBox();
             this.ClientIcon = new System.Windows.Forms.PictureBox();
             this.ClientControlBar = new System.Windows.Forms.PictureBox();
+            this.ExportDataButton = new System.Windows.Forms.Button();
             this.EditorPanel.SuspendLayout();
             this.EditorAddProjectPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorNewProjectColorRGB_B)).BeginInit();
@@ -132,7 +133,7 @@
             this.StartInputActivity.FlatAppearance.BorderSize = 0;
             this.StartInputActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartInputActivity.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartInputActivity.ForeColor = System.Drawing.Color.LightGray;
+            this.StartInputActivity.ForeColor = System.Drawing.Color.Gainsboro;
             this.StartInputActivity.Location = new System.Drawing.Point(260, 40);
             this.StartInputActivity.Name = "StartInputActivity";
             this.StartInputActivity.Size = new System.Drawing.Size(90, 30);
@@ -842,12 +843,28 @@
             this.ClientControlBar.TabStop = false;
             this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
             // 
+            // ExportDataButton
+            // 
+            this.ExportDataButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(87)))), ((int)(((byte)(114)))));
+            this.ExportDataButton.FlatAppearance.BorderSize = 0;
+            this.ExportDataButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportDataButton.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExportDataButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.ExportDataButton.Location = new System.Drawing.Point(260, 473);
+            this.ExportDataButton.Name = "ExportDataButton";
+            this.ExportDataButton.Size = new System.Drawing.Size(90, 23);
+            this.ExportDataButton.TabIndex = 13;
+            this.ExportDataButton.Text = "Export Data";
+            this.ExportDataButton.UseVisualStyleBackColor = false;
+            this.ExportDataButton.Click += new System.EventHandler(this.ExportDataButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.ExportDataButton);
             this.Controls.Add(this.EditorPanel);
             this.Controls.Add(this.ActivitiesDisplay);
             this.Controls.Add(this.ClientDayLabel);
@@ -862,6 +879,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "Trackr";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.EditorPanel.ResumeLayout(false);
             this.EditorPanel.PerformLayout();
@@ -955,6 +973,7 @@
         private System.Windows.Forms.Label EditorLabel_NewProjectColorRGB_G;
         internal System.Windows.Forms.NumericUpDown EditorNewProjectColorRGB_R;
         private System.Windows.Forms.Label EditorLabel_NewProjectColorRGB_R;
+        private System.Windows.Forms.Button ExportDataButton;
     }
 }
 
