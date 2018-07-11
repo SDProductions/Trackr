@@ -841,7 +841,9 @@
             this.ClientControlBar.Size = new System.Drawing.Size(350, 80);
             this.ClientControlBar.TabIndex = 0;
             this.ClientControlBar.TabStop = false;
+            this.ClientControlBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseDown);
             this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
+            this.ClientControlBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseUp);
             // 
             // ExportDataButton
             // 

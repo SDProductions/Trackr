@@ -25,6 +25,9 @@ namespace Trackr
         internal int minutesElapsed = 0;
         internal int hoursElapsed = 0;
 
+        private bool mouseDown;
+        private Point lastLocation;
+
         internal string[] monthCodes = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
         internal void InitializeActivity()
@@ -143,11 +146,23 @@ namespace Trackr
             Close();
         }
 
+        private void ClientControlBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            lastLocation = e.Location;
+        }
+
+        private void ClientControlBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+
         private void ClientControlBar_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (mouseDown)
             {
-                Location = new Point(MousePosition.X-175, MousePosition.Y-10);
+                Location = new Point((Location.X - lastLocation.X) + e.X,
+                                     (Location.Y - lastLocation.Y) + e.Y);
             }
         }
 
