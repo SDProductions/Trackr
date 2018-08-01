@@ -94,6 +94,7 @@
             this.Settings = new System.Windows.Forms.PictureBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.SettingsHeader_Functionality = new System.Windows.Forms.Label();
+            this.NotificationsLabel = new System.Windows.Forms.Label();
             this.EditorPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter3)).BeginInit();
             this.EditorDateSelector.SuspendLayout();
@@ -855,7 +856,7 @@
             this.SettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SettingsPanel.Controls.Add(this.SettingsHeader_Functionality);
             this.SettingsPanel.Controls.Add(this.ExportDataButton);
-            this.SettingsPanel.Location = new System.Drawing.Point(260, 30);
+            this.SettingsPanel.Location = new System.Drawing.Point(192, 30);
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Size = new System.Drawing.Size(155, 203);
             this.SettingsPanel.TabIndex = 0;
@@ -871,12 +872,23 @@
             this.SettingsHeader_Functionality.TabIndex = 14;
             this.SettingsHeader_Functionality.Text = "Additional Functionality";
             // 
+            // NotificationsLabel
+            // 
+            this.NotificationsLabel.AutoSize = true;
+            this.NotificationsLabel.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NotificationsLabel.Location = new System.Drawing.Point(12, 477);
+            this.NotificationsLabel.Name = "NotificationsLabel";
+            this.NotificationsLabel.Size = new System.Drawing.Size(205, 16);
+            this.NotificationsLabel.TabIndex = 44;
+            this.NotificationsLabel.Text = "Any notifications will be displayed here.";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.NotificationsLabel);
             this.Controls.Add(this.SettingsPanel);
             this.Controls.Add(this.Settings);
             this.Controls.Add(this.EditorAddProjectPanel);
@@ -993,6 +1005,7 @@
         private System.Windows.Forms.PictureBox Settings;
         private System.Windows.Forms.Panel SettingsPanel;
         private System.Windows.Forms.Label SettingsHeader_Functionality;
+        private System.Windows.Forms.Label NotificationsLabel;
     }
 }
 

@@ -51,8 +51,7 @@ namespace Trackr
             {
                 activities = new List<ActivityPanel>();
             }
-
-            Random rnd = new Random();
+            
             var newPanel = new ActivityPanel
             {
                 Location = new Point(0, 0)
@@ -425,36 +424,45 @@ namespace Trackr
 
         private void ExportDataButton_Click(object sender, EventArgs e)
         {
-            string newExportFolder = exportFolder + @"\" + DateTime.Today.Month + "-" + DateTime.Today.Day;
-            if (!Directory.Exists(newExportFolder))
+            try
             {
-                Directory.CreateDirectory(newExportFolder);
-            }
-            string newFilePath = newExportFolder + @"\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute;
-
-            List<ExportInfo> toExport = new List<ExportInfo>();
-
-            for (int a = 0; a < activities.Count; a++)
-            {
-                ActivityPanel selected = activities[a];
-                ExportInfo exportInfo = new ExportInfo
+                string newExportFolder = exportFolder + @"\" + DateTime.Today.Month + "-" + DateTime.Today.Day;
+                if (!Directory.Exists(newExportFolder))
                 {
-                    name = selected.ActivityName.Text,
-                    startTime = selected.startTime,
-                    endTime = selected.endTime,
-                    day = selected.day,
-                    month = selected.month,
-                    projName = selected.ProjectName.Text,
-                    projColor = selected.ProjectColor.BackColor,
-                    details = selected.details
-                };
-                toExport.Add(exportInfo);
-            }
+                    Directory.CreateDirectory(newExportFolder);
+                }
+                string newFilePath = newExportFolder + @"\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute;
 
-            string json = JsonConvert.SerializeObject(toExport, Formatting.Indented);
-            Thread.Sleep(1000);
-            File.WriteAllText(newFilePath + "-export.json", json);
-            File.WriteAllText(newFilePath + "-export-plaintext.txt", json);
+                List<ExportInfo> toExport = new List<ExportInfo>();
+
+                for (int a = 0; a < activities.Count; a++)
+                {
+                    ActivityPanel selected = activities[a];
+                    ExportInfo exportInfo = new ExportInfo
+                    {
+                        name = selected.ActivityName.Text,
+                        startTime = selected.startTime,
+                        endTime = selected.endTime,
+                        day = selected.day,
+                        month = selected.month,
+                        projName = selected.ProjectName.Text,
+                        projColor = selected.ProjectColor.BackColor,
+                        details = selected.details
+                    };
+                    toExport.Add(exportInfo);
+                }
+
+                string json = JsonConvert.SerializeObject(toExport, Formatting.Indented);
+                Thread.Sleep(1000);
+                File.WriteAllText(newFilePath + "-export.json", json);
+                File.WriteAllText(newFilePath + "-export-plaintext.txt", json);
+
+                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Export to {newFilePath} successful!";
+            }
+            catch
+            {
+                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Something went wrong while exporting your data.";
+            }
         }
     }
 }
