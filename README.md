@@ -1,6 +1,6 @@
 # Trackr
 
-Trackr is now in a 2 week testing period where little work on the repo will be seen, but data in performance and usability gathered.
+Trackr is now in a 2 week testing period where many hotfixes and improvements, as well as data in performance and usability gathered.
 
 <b>Do you suck at time management?</b>
 <b>Do you like using past experiences and data to improve upon your workflow and better optimize your day?</b>
