@@ -99,6 +99,7 @@
     <None Include="Resources\baseline-calendar_today-24px.png" />
     <Content Include="Resources\close.png" />
     <None Include="Resources\close1.png" />
+    <None Include="Resources\dropdown.png" />
     <Content Include="Resources\minimize.png" />
     <None Include="Resources\sdp-ico.ico" />
     <None Include="Resources\sdp-ico.png" />

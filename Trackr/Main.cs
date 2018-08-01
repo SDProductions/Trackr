@@ -136,6 +136,23 @@ namespace Trackr
             (sender as Control).BackColor = Color.FromArgb(20, 25, 35);
         }
 
+        private void EditorMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as Control).BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            if (SettingsPanel.Visible)
+            {
+                SettingsPanel.Visible = false;
+            }
+            else
+            {
+                SettingsPanel.Visible = true;
+            }
+        }
+
         private void Minimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
@@ -254,7 +271,7 @@ namespace Trackr
         private void EditorDateNext_Click(object sender, EventArgs e)
         {
             DateTime storedDate = new DateTime(DateTime.Now.Year,
-                                               monthCodes.ToList<string>().IndexOf(EditSelectedActivity().month),
+                                               monthCodes.ToList().IndexOf(EditSelectedActivity().month),
                                                EditSelectedActivity().day);
             EditSelectedActivity().day = storedDate.AddDays(1).Day;
             EditSelectedActivity().month = monthCodes[storedDate.AddDays(1).Month];
@@ -266,7 +283,7 @@ namespace Trackr
         private void EditorDatePrevious_Click(object sender, EventArgs e)
         {
             DateTime storedDate = new DateTime(DateTime.Now.Year,
-                                              monthCodes.ToList<string>().IndexOf(EditSelectedActivity().month),
+                                              monthCodes.ToList().IndexOf(EditSelectedActivity().month),
                                               EditSelectedActivity().day);
             EditSelectedActivity().day = storedDate.AddDays(-1).Day;
             EditSelectedActivity().month = monthCodes[storedDate.AddDays(-1).Month];
@@ -330,22 +347,15 @@ namespace Trackr
 
         private void EditorAddProject_Click(object sender, EventArgs e)
         {
-            EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, 0);
+            EditorPanel.Visible = false;
             EditorAddProjectPanel.Visible = true;
-            for (int h = 0; h <= 185; h++)
-            {
-                EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, h);
-            }
         }
 
         private void EditorCancelAddProject_Click(object sender, EventArgs e)
         {
             EditorNewProjectName.Text = "";
-            for (int h = 185; h >= 0; h--)
-            {
-                EditorAddProjectPanel.Size = new Size(EditorAddProjectPanel.Size.Width, h);
-            }
             EditorAddProjectPanel.Visible = false;
+            EditorPanel.Visible = true;
         }
 
         private void EditorConfirmAddProject_Click(object sender, EventArgs e)
@@ -367,6 +377,8 @@ namespace Trackr
                 EditorNewProjectColorRGB_R.Value = 0;
                 EditorNewProjectColorRGB_G.Value = 0;
                 EditorNewProjectColorRGB_B.Value = 0;
+
+                EditorCancelAddProject_Click(sender, e);
             }
         }
 
@@ -385,10 +397,6 @@ namespace Trackr
 
         private void CloseEditor_Click(object sender, EventArgs e)
         {
-            for (int p = 0; p < activities.Count; p++)
-            {
-                activities[p].ExpandActivityInfo.Text = ">";
-            }
             for (int t = 0; t < 80; t++)
             {
                 Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
