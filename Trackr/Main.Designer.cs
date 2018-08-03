@@ -95,6 +95,8 @@
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.SettingsHeader_Functionality = new System.Windows.Forms.Label();
             this.NotificationsLabel = new System.Windows.Forms.Label();
+            this.QuickProjectSelector = new System.Windows.Forms.ComboBox();
+            this.QuickAddProject = new System.Windows.Forms.Button();
             this.EditorPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter3)).BeginInit();
             this.EditorDateSelector.SuspendLayout();
@@ -124,7 +126,7 @@
             this.ClientTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
             this.ClientTitle.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClientTitle.ForeColor = System.Drawing.Color.Silver;
-            this.ClientTitle.Location = new System.Drawing.Point(30, 6);
+            this.ClientTitle.Location = new System.Drawing.Point(33, 6);
             this.ClientTitle.Name = "ClientTitle";
             this.ClientTitle.Size = new System.Drawing.Size(88, 18);
             this.ClientTitle.TabIndex = 3;
@@ -795,7 +797,7 @@
             // 
             this.ClientIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
             this.ClientIcon.Image = global::Trackr.Properties.Resources.program_ico;
-            this.ClientIcon.Location = new System.Drawing.Point(2, 2);
+            this.ClientIcon.Location = new System.Drawing.Point(3, 2);
             this.ClientIcon.Name = "ClientIcon";
             this.ClientIcon.Size = new System.Drawing.Size(26, 26);
             this.ClientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -807,7 +809,7 @@
             this.ClientControlBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(25)))), ((int)(((byte)(35)))));
             this.ClientControlBar.Location = new System.Drawing.Point(0, 0);
             this.ClientControlBar.Name = "ClientControlBar";
-            this.ClientControlBar.Size = new System.Drawing.Size(350, 86);
+            this.ClientControlBar.Size = new System.Drawing.Size(350, 110);
             this.ClientControlBar.TabIndex = 0;
             this.ClientControlBar.TabStop = false;
             this.ClientControlBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseDown);
@@ -882,14 +884,42 @@
             this.NotificationsLabel.TabIndex = 44;
             this.NotificationsLabel.Text = "Any notifications will be displayed here.";
             // 
+            // QuickProjectSelector
+            // 
+            this.QuickProjectSelector.BackColor = System.Drawing.SystemColors.Control;
+            this.QuickProjectSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.QuickProjectSelector.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(87)))), ((int)(((byte)(114)))));
+            this.QuickProjectSelector.FormattingEnabled = true;
+            this.QuickProjectSelector.Location = new System.Drawing.Point(16, 76);
+            this.QuickProjectSelector.Name = "QuickProjectSelector";
+            this.QuickProjectSelector.Size = new System.Drawing.Size(230, 21);
+            this.QuickProjectSelector.TabIndex = 45;
+            // 
+            // QuickAddProject
+            // 
+            this.QuickAddProject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(87)))), ((int)(((byte)(114)))));
+            this.QuickAddProject.FlatAppearance.BorderSize = 0;
+            this.QuickAddProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.QuickAddProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuickAddProject.ForeColor = System.Drawing.Color.Gainsboro;
+            this.QuickAddProject.Location = new System.Drawing.Point(260, 75);
+            this.QuickAddProject.Name = "QuickAddProject";
+            this.QuickAddProject.Size = new System.Drawing.Size(90, 22);
+            this.QuickAddProject.TabIndex = 46;
+            this.QuickAddProject.Text = "Add Project";
+            this.QuickAddProject.UseVisualStyleBackColor = false;
+            this.QuickAddProject.Click += new System.EventHandler(this.QuickAddProject_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
-            this.Controls.Add(this.NotificationsLabel);
             this.Controls.Add(this.SettingsPanel);
+            this.Controls.Add(this.QuickAddProject);
+            this.Controls.Add(this.QuickProjectSelector);
+            this.Controls.Add(this.NotificationsLabel);
             this.Controls.Add(this.Settings);
             this.Controls.Add(this.EditorAddProjectPanel);
             this.Controls.Add(this.EditorPanel);
@@ -1006,6 +1036,8 @@
         private System.Windows.Forms.Panel SettingsPanel;
         private System.Windows.Forms.Label SettingsHeader_Functionality;
         private System.Windows.Forms.Label NotificationsLabel;
+        private System.Windows.Forms.ComboBox QuickProjectSelector;
+        private System.Windows.Forms.Button QuickAddProject;
     }
 }
 

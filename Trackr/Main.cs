@@ -68,11 +68,11 @@ namespace Trackr
             newPanel.startTime = DateTime.Now.ToShortTimeString();
             newPanel.day = DateTime.Today.Day;
             newPanel.month = monthCodes[DateTime.Today.Month - 1];
-            newPanel.ProjectName.Text = "No Project";
-            var noProjectTuple = (from p in projects
-                                 where p.Item1 == "No Project"
-                                 select p).FirstOrDefault();
-            newPanel.ProjectColor.BackColor = noProjectTuple.Item2;
+            newPanel.ProjectName.Text = QuickProjectSelector.SelectedItem.ToString();
+            var projectTuple = (from p in projects
+                                where p.Item1 == QuickProjectSelector.SelectedItem.ToString()
+                                select p).FirstOrDefault();
+            newPanel.ProjectColor.BackColor = projectTuple.Item2;
 
             activities.Add(newPanel);
             Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(newPanel);
@@ -110,6 +110,7 @@ namespace Trackr
                 for (int p = projects.Count - 1; p >= 0; p--)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
+                    QuickProjectSelector.Items.Add(projects[p].Item1);
                 }
             }
             else
@@ -121,8 +122,10 @@ namespace Trackr
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
+                    QuickProjectSelector.Items.Add(projects[p].Item1);
                 }
             }
+            QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf("No Project");
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -204,6 +207,22 @@ namespace Trackr
             {
                 InitializeActivity();
             }
+        }
+
+        private void QuickAddProject_Click(object sender, EventArgs e)
+        {
+            if (Size.Width == 350)
+            {
+                for (int t = 0; t < 80; t++)
+                {
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 5, 500);
+                }
+            }
+
+            EditorAddProjectPanel.Visible = true;
+            EditorPanel.Visible = false;
+
+            EditorActivityID.Text = "QPS";
         }
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
@@ -330,9 +349,11 @@ namespace Trackr
             projects.Add(new Tuple<string, Color>(targetProject.Item1, newColor));
 
             EditorProjectSelector.Items.Clear();
+            QuickProjectSelector.Items.Clear();
             for (int p = 0; p < projects.Count; p++)
             {
                 EditorProjectSelector.Items.Add(projects[p].Item1);
+                QuickProjectSelector.Items.Add(projects[p].Item1);
             }
 
             for (int a = 0; a < activities.Count; a++)
@@ -355,6 +376,14 @@ namespace Trackr
             EditorNewProjectName.Text = "";
             EditorAddProjectPanel.Visible = false;
             EditorPanel.Visible = true;
+
+            if (EditorActivityID.Text == "QPS")
+            {
+                for (int t = 0; t < 80; t++)
+                {
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
+                }
+            }
         }
 
         private void EditorConfirmAddProject_Click(object sender, EventArgs e)
@@ -368,9 +397,11 @@ namespace Trackr
                 projects.Add(newProject);
 
                 EditorProjectSelector.Items.Clear();
+                QuickProjectSelector.Items.Clear();
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
+                    QuickProjectSelector.Items.Add(projects[p].Item1);
                 }
                 EditorNewProjectName.Text = "";
                 EditorNewProjectColorRGB_R.Value = 0;
@@ -378,6 +409,9 @@ namespace Trackr
                 EditorNewProjectColorRGB_B.Value = 0;
 
                 EditorCancelAddProject_Click(sender, e);
+
+                EditorProjectSelector.SelectedIndex = EditorProjectSelector.Items.IndexOf(EditorNewProjectName.Text);
+                QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf(EditorNewProjectName.Text);
             }
         }
 
