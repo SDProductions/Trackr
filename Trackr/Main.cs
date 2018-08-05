@@ -217,12 +217,22 @@ namespace Trackr
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 5, 500);
                 }
+
+                EditorAddProjectPanel.Visible = true;
+                EditorPanel.Visible = false;
+
+                EditorActivityID.Text = "QPS";
             }
+            else
+            {
+                for (int t = 0; t < 80; t++)
+                {
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
+                }
 
-            EditorAddProjectPanel.Visible = true;
-            EditorPanel.Visible = false;
-
-            EditorActivityID.Text = "QPS";
+                EditorAddProjectPanel.Visible = false;
+                EditorPanel.Visible = true;
+            }
         }
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
