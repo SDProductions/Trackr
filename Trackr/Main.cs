@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Trackr
@@ -17,9 +16,9 @@ namespace Trackr
 
         private string exportFolder = "Data";
 
-        internal List<ActivityPanel> activities;
+        internal List<ActivityPanel> activities = new List<ActivityPanel>();
         internal ActivityPanel activeActivity;
-        internal List<Tuple<string, Color>> projects;
+        internal List<Tuple<string, Color>> projects = new List<Tuple<string, Color>>();
 
         internal int secondsElapsed = 0;
         internal int minutesElapsed = 0;
@@ -46,10 +45,6 @@ namespace Trackr
                 }
 
                 newActivityID = activities[(activities.Count - 1)].activityID + 1;
-            }
-            else
-            {
-                activities = new List<ActivityPanel>();
             }
             
             var newPanel = new ActivityPanel
@@ -81,6 +76,22 @@ namespace Trackr
             ActivtyTimer.Start();
             StartInputActivity.Text = "Stop";
             StartInputActivity.BackColor = Color.FromArgb(47, 67, 94);
+        }
+
+        struct ActivityInfo
+        {
+            public string name;
+            public string startTime;
+            public string endTime;
+            public int day;
+            public string month;
+
+            public string projName;
+            public Color projColor;
+
+            public string details;
+
+            public int ID;
         }
 
         public Main()
@@ -126,6 +137,40 @@ namespace Trackr
                 }
             }
             QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf("No Project");
+
+            if (File.Exists(exportFolder + @"\latest-export.json"))
+            {
+                string json = File.ReadAllText(exportFolder + @"\latest-export.json");
+                List<ActivityInfo> data = JsonConvert.DeserializeObject<List<ActivityInfo>>(json);
+
+                List<ActivityPanel> loadedPanels = new List<ActivityPanel>();
+                foreach (ActivityInfo info in data)
+                {
+                    var newActivity = new ActivityPanel
+                    {
+                        startTime = info.startTime,
+                        endTime = info.endTime,
+                        day = info.day,
+                        month = info.month,
+                        details = info.details,
+                        activityID = info.ID
+                    };
+                    newActivity.ActivityName.Text = info.name;
+                    newActivity.ProjectName.Text = info.projName;
+                    newActivity.ProjectColor.BackColor = info.projColor;
+
+                    loadedPanels.Add(newActivity);
+                }
+                
+                int yPos = 0;
+                foreach (ActivityPanel panel in loadedPanels)
+                {
+                    panel.Location = new Point(0, yPos);
+                    yPos += 60;
+                    activities.Add(panel);
+                    ActivitiesDisplay.Controls.Add(panel);
+                }
+            }
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -221,7 +266,7 @@ namespace Trackr
                 EditorAddProjectPanel.Visible = true;
                 EditorPanel.Visible = false;
 
-                EditorActivityID.Text = "QPS";
+                EditorActivityID.Text = "-1";
             }
             else
             {
@@ -251,32 +296,29 @@ namespace Trackr
                 minutesElapsed = 0;
                 hoursElapsed++;
             }
+            if (hoursElapsed >= 99)
+            {
+                hoursElapsed = 99;
+                minutesElapsed = 59;
+                secondsElapsed = 59;
+                StartInputActivity_Click(sender, e);
+            }
 
             string timeConstruct = "";
             if (hoursElapsed < 10)
-            {
                 timeConstruct += $"0{hoursElapsed}:";
-            }
             else
-            {
                 timeConstruct += $"{hoursElapsed}:";
-            }
+
             if (minutesElapsed < 10)
-            {
                 timeConstruct += $"0{minutesElapsed}:";
-            }
             else
-            {
                 timeConstruct += $"{minutesElapsed}:";
-            }
+
             if (secondsElapsed < 10)
-            {
                 timeConstruct += $"0{secondsElapsed}";
-            }
             else
-            {
                 timeConstruct += $"{secondsElapsed}";
-            }
 
             activeActivity.ActivityTime.Text = $"{timeConstruct}s";
 
@@ -329,16 +371,20 @@ namespace Trackr
 
         private void EditorProjectSelector_SelectionChanged(object sender, EventArgs e)
         {
-            EditSelectedActivity().ProjectName.Text = EditorProjectSelector.Text;
-            if (EditorProjectSelector.Items.Contains(EditSelectedActivity().ProjectName.Text))
+            try
             {
-                var targetProject = (from p in projects
-                                     where p.Item1 == EditSelectedActivity().ProjectName.Text
-                                     select p).FirstOrDefault();
-                EditSelectedActivity().ProjectColor.BackColor = targetProject.Item2;
-                ProjectColorSideBar.BackColor = targetProject.Item2;
-                EditorChangeProjectRGB(targetProject.Item2);
+                EditSelectedActivity().ProjectName.Text = EditorProjectSelector.Text;
+                if (EditorProjectSelector.Items.Contains(EditSelectedActivity().ProjectName.Text))
+                {
+                    var targetProject = (from p in projects
+                                         where p.Item1 == EditSelectedActivity().ProjectName.Text
+                                         select p).FirstOrDefault();
+                    EditSelectedActivity().ProjectColor.BackColor = targetProject.Item2;
+                    ProjectColorSideBar.BackColor = targetProject.Item2;
+                    EditorChangeProjectRGB(targetProject.Item2);
+                }
             }
+            catch { }
         }
 
         private void EditorProjectColorRGB_UpdateColor(object sender, EventArgs e)
@@ -387,7 +433,7 @@ namespace Trackr
             EditorAddProjectPanel.Visible = false;
             EditorPanel.Visible = true;
 
-            if (EditorActivityID.Text == "QPS")
+            if (EditorActivityID.Text == "-1")
             {
                 for (int t = 0; t < 80; t++)
                 {
@@ -413,15 +459,17 @@ namespace Trackr
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                     QuickProjectSelector.Items.Add(projects[p].Item1);
                 }
+
+                EditorProjectSelector.SelectedIndex = EditorProjectSelector.FindStringExact(EditorNewProjectName.Text);
+                QuickProjectSelector.SelectedIndex = QuickProjectSelector.FindStringExact(EditorNewProjectName.Text);
+                
                 EditorNewProjectName.Text = "";
                 EditorNewProjectColorRGB_R.Value = 0;
                 EditorNewProjectColorRGB_G.Value = 0;
                 EditorNewProjectColorRGB_B.Value = 0;
 
-                EditorCancelAddProject_Click(sender, e);
 
-                EditorProjectSelector.SelectedIndex = EditorProjectSelector.Items.IndexOf(EditorNewProjectName.Text);
-                QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf(EditorNewProjectName.Text);
+                EditorCancelAddProject_Click(sender, e);
             }
         }
 
@@ -450,39 +498,21 @@ namespace Trackr
         {
             string json = JsonConvert.SerializeObject(projects);
             File.WriteAllText(resourcesFolder + @"\" + existingProjectsFile, json);
-        }
-
-        struct ExportInfo
-        {
-            public string name;
-            public string startTime;
-            public string endTime;
-            public int day;
-            public string month;
-
-            public string projName;
-            public Color projColor;
-
-            public string details;
+            ExportDataButton_Click(sender, e);
         }
 
         private void ExportDataButton_Click(object sender, EventArgs e)
         {
             try
             {
-                string newExportFolder = exportFolder + @"\" + DateTime.Today.Month + "-" + DateTime.Today.Day;
-                if (!Directory.Exists(newExportFolder))
-                {
-                    Directory.CreateDirectory(newExportFolder);
-                }
-                string newFilePath = newExportFolder + @"\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute;
+                string exportPath = $@"{exportFolder}\latest-export.json";
 
-                List<ExportInfo> toExport = new List<ExportInfo>();
+                List<ActivityInfo> toExport = new List<ActivityInfo>();
 
                 for (int a = 0; a < activities.Count; a++)
                 {
                     ActivityPanel selected = activities[a];
-                    ExportInfo exportInfo = new ExportInfo
+                    ActivityInfo exportInfo = new ActivityInfo
                     {
                         name = selected.ActivityName.Text,
                         startTime = selected.startTime,
@@ -491,21 +521,21 @@ namespace Trackr
                         month = selected.month,
                         projName = selected.ProjectName.Text,
                         projColor = selected.ProjectColor.BackColor,
-                        details = selected.details
+                        details = selected.details,
+                        ID = selected.activityID
                     };
                     toExport.Add(exportInfo);
                 }
 
+                toExport.Reverse();
                 string json = JsonConvert.SerializeObject(toExport, Formatting.Indented);
-                Thread.Sleep(1000);
-                File.WriteAllText(newFilePath + "-export.json", json);
-                File.WriteAllText(newFilePath + "-export-plaintext.txt", json);
+                File.WriteAllText(exportPath, json);
 
-                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Export to {newFilePath} successful!";
+                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Exported as latest cumulative datafile.";
             }
             catch
             {
-                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Something went wrong while exporting your data.";
+                NotificationsLabel.Text = $"[{DateTime.Now.ToShortTimeString()}] Something went wrong while exporting.";
             }
         }
     }

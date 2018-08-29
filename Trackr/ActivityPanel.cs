@@ -18,7 +18,7 @@ namespace Trackr
         public int day = 1;
         public string month = "JAN";
         public string details = "None!";
-
+        
         public ActivityPanel()
         {
             InitializeComponent();
