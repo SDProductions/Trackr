@@ -69,25 +69,25 @@ namespace Trackr
             {
                 SetEditorInfo();
 
-                for (int t = 0; t < 80; t++)
+                for (int t = 0; t < 50; t++)
                 {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 5, 500);
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
                 }
             }
             else
             {
-                for (int t = 0; t < 80; t++)
+                for (int t = 0; t < 50; t++)
                 {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 5, 500);
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
                 }
                 
                 if (!(int.Parse(GetControl("EditorActivityID").Text) == this.activityID))
                 {
                     SetEditorInfo();
 
-                    for (int t = 0; t < 80; t++)
+                    for (int t = 0; t < 50; t++)
                     {
-                        Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 5, 500);
+                        Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
                     }
                 }
             }
