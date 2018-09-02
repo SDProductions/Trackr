@@ -33,7 +33,7 @@ namespace Trackr
         {
             int newActivityID = 0;
 
-            if (activities != null)
+            if (activities.Count != 0)
             {
                 for (int p = 0; p < activities.Count(); p++)
                 {
@@ -251,6 +251,19 @@ namespace Trackr
             else
             {
                 InitializeActivity();
+            }
+        }
+
+        private void InputActivity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                StartInputActivity_Click(sender, e);
+
+                ActiveForm.Focus();
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
 

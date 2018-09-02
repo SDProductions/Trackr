@@ -159,6 +159,7 @@
             this.InputActivity.TabIndex = 7;
             this.InputActivity.Text = "What are you doing?";
             this.InputActivity.Click += new System.EventHandler(this.InputActivity_Click);
+            this.InputActivity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputActivity_KeyDown);
             // 
             // ActivtyTimer
             // 
