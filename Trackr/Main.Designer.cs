@@ -93,10 +93,17 @@
             this.EditorBackground = new System.Windows.Forms.Panel();
             this.Settings = new System.Windows.Forms.PictureBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
+            this.ResetProgramButton = new System.Windows.Forms.Button();
+            this.SettingsHeader_Program = new System.Windows.Forms.Label();
             this.SettingsHeader_Functionality = new System.Windows.Forms.Label();
             this.NotificationsLabel = new System.Windows.Forms.Label();
             this.QuickProjectSelector = new System.Windows.Forms.ComboBox();
             this.QuickAddProject = new System.Windows.Forms.Button();
+            this.EditorHeader_DeleteProject = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.EditorLabel_DeleteProjectName = new System.Windows.Forms.Label();
+            this.DeleteProjectSelector = new System.Windows.Forms.ComboBox();
+            this.EditorConfirmDeleteProject = new System.Windows.Forms.Button();
             this.EditorPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter3)).BeginInit();
             this.EditorDateSelector.SuspendLayout();
@@ -118,6 +125,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ClientControlBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Settings)).BeginInit();
             this.SettingsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // ClientTitle
@@ -477,6 +485,7 @@
             // 
             // EditorProjectSelector
             // 
+            this.EditorProjectSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EditorProjectSelector.FormattingEnabled = true;
             this.EditorProjectSelector.Location = new System.Drawing.Point(92, 198);
             this.EditorProjectSelector.Name = "EditorProjectSelector";
@@ -597,6 +606,11 @@
             // EditorAddProjectPanel
             // 
             this.EditorAddProjectPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorAddProjectPanel.Controls.Add(this.EditorConfirmDeleteProject);
+            this.EditorAddProjectPanel.Controls.Add(this.DeleteProjectSelector);
+            this.EditorAddProjectPanel.Controls.Add(this.EditorLabel_DeleteProjectName);
+            this.EditorAddProjectPanel.Controls.Add(this.pictureBox2);
+            this.EditorAddProjectPanel.Controls.Add(this.EditorHeader_DeleteProject);
             this.EditorAddProjectPanel.Controls.Add(this.EditorNewProjectColorRGB_B);
             this.EditorAddProjectPanel.Controls.Add(this.EditorLabel_NewProjectColorRGB_B);
             this.EditorAddProjectPanel.Controls.Add(this.EditorNewProjectColorRGB_G);
@@ -612,7 +626,7 @@
             this.EditorAddProjectPanel.Controls.Add(this.EditorConfirmAddProject);
             this.EditorAddProjectPanel.Location = new System.Drawing.Point(360, 0);
             this.EditorAddProjectPanel.Name = "EditorAddProjectPanel";
-            this.EditorAddProjectPanel.Size = new System.Drawing.Size(390, 185);
+            this.EditorAddProjectPanel.Size = new System.Drawing.Size(390, 270);
             this.EditorAddProjectPanel.TabIndex = 41;
             this.EditorAddProjectPanel.Visible = false;
             // 
@@ -696,7 +710,7 @@
             // 
             this.EditorCancelAddProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.EditorCancelAddProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditorCancelAddProject.Location = new System.Drawing.Point(150, 115);
+            this.EditorCancelAddProject.Location = new System.Drawing.Point(140, 238);
             this.EditorCancelAddProject.Name = "EditorCancelAddProject";
             this.EditorCancelAddProject.Size = new System.Drawing.Size(77, 25);
             this.EditorCancelAddProject.TabIndex = 45;
@@ -753,7 +767,7 @@
             this.EditorConfirmAddProject.Name = "EditorConfirmAddProject";
             this.EditorConfirmAddProject.Size = new System.Drawing.Size(130, 25);
             this.EditorConfirmAddProject.TabIndex = 21;
-            this.EditorConfirmAddProject.Text = "Confirm Add Project";
+            this.EditorConfirmAddProject.Text = "Add Project";
             this.EditorConfirmAddProject.UseVisualStyleBackColor = true;
             this.EditorConfirmAddProject.Click += new System.EventHandler(this.EditorConfirmAddProject_Click);
             // 
@@ -823,7 +837,7 @@
             this.ExportDataButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExportDataButton.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExportDataButton.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.ExportDataButton.Location = new System.Drawing.Point(-1, 22);
+            this.ExportDataButton.Location = new System.Drawing.Point(-1, 70);
             this.ExportDataButton.Name = "ExportDataButton";
             this.ExportDataButton.Size = new System.Drawing.Size(155, 23);
             this.ExportDataButton.TabIndex = 13;
@@ -857,6 +871,8 @@
             // 
             this.SettingsPanel.BackColor = System.Drawing.SystemColors.Control;
             this.SettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SettingsPanel.Controls.Add(this.ResetProgramButton);
+            this.SettingsPanel.Controls.Add(this.SettingsHeader_Program);
             this.SettingsPanel.Controls.Add(this.SettingsHeader_Functionality);
             this.SettingsPanel.Controls.Add(this.ExportDataButton);
             this.SettingsPanel.Location = new System.Drawing.Point(192, 30);
@@ -865,11 +881,34 @@
             this.SettingsPanel.TabIndex = 0;
             this.SettingsPanel.Visible = false;
             // 
+            // ResetProgramButton
+            // 
+            this.ResetProgramButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ResetProgramButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetProgramButton.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetProgramButton.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.ResetProgramButton.Location = new System.Drawing.Point(-1, 20);
+            this.ResetProgramButton.Name = "ResetProgramButton";
+            this.ResetProgramButton.Size = new System.Drawing.Size(155, 23);
+            this.ResetProgramButton.TabIndex = 16;
+            this.ResetProgramButton.Text = "Reset";
+            this.ResetProgramButton.UseVisualStyleBackColor = false;
+            // 
+            // SettingsHeader_Program
+            // 
+            this.SettingsHeader_Program.AutoSize = true;
+            this.SettingsHeader_Program.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsHeader_Program.Location = new System.Drawing.Point(2, 2);
+            this.SettingsHeader_Program.Name = "SettingsHeader_Program";
+            this.SettingsHeader_Program.Size = new System.Drawing.Size(96, 16);
+            this.SettingsHeader_Program.TabIndex = 15;
+            this.SettingsHeader_Program.Text = "Program Options";
+            // 
             // SettingsHeader_Functionality
             // 
             this.SettingsHeader_Functionality.AutoSize = true;
             this.SettingsHeader_Functionality.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsHeader_Functionality.Location = new System.Drawing.Point(2, 2);
+            this.SettingsHeader_Functionality.Location = new System.Drawing.Point(2, 52);
             this.SettingsHeader_Functionality.Name = "SettingsHeader_Functionality";
             this.SettingsHeader_Functionality.Size = new System.Drawing.Size(136, 16);
             this.SettingsHeader_Functionality.TabIndex = 14;
@@ -907,9 +946,62 @@
             this.QuickAddProject.Name = "QuickAddProject";
             this.QuickAddProject.Size = new System.Drawing.Size(90, 22);
             this.QuickAddProject.TabIndex = 46;
-            this.QuickAddProject.Text = "Add Project";
+            this.QuickAddProject.Text = "Projects";
             this.QuickAddProject.UseVisualStyleBackColor = false;
             this.QuickAddProject.Click += new System.EventHandler(this.QuickAddProject_Click);
+            // 
+            // EditorHeader_DeleteProject
+            // 
+            this.EditorHeader_DeleteProject.AutoSize = true;
+            this.EditorHeader_DeleteProject.BackColor = System.Drawing.SystemColors.Control;
+            this.EditorHeader_DeleteProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorHeader_DeleteProject.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.EditorHeader_DeleteProject.Location = new System.Drawing.Point(7, 165);
+            this.EditorHeader_DeleteProject.Name = "EditorHeader_DeleteProject";
+            this.EditorHeader_DeleteProject.Size = new System.Drawing.Size(86, 16);
+            this.EditorHeader_DeleteProject.TabIndex = 47;
+            this.EditorHeader_DeleteProject.Text = "Delete Project";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 182);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(390, 1);
+            this.pictureBox2.TabIndex = 48;
+            this.pictureBox2.TabStop = false;
+            // 
+            // EditorLabel_DeleteProjectName
+            // 
+            this.EditorLabel_DeleteProjectName.AutoSize = true;
+            this.EditorLabel_DeleteProjectName.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorLabel_DeleteProjectName.Location = new System.Drawing.Point(10, 200);
+            this.EditorLabel_DeleteProjectName.Name = "EditorLabel_DeleteProjectName";
+            this.EditorLabel_DeleteProjectName.Size = new System.Drawing.Size(79, 16);
+            this.EditorLabel_DeleteProjectName.TabIndex = 49;
+            this.EditorLabel_DeleteProjectName.Text = "Project Name:";
+            // 
+            // DeleteProjectSelector
+            // 
+            this.DeleteProjectSelector.BackColor = System.Drawing.SystemColors.Control;
+            this.DeleteProjectSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DeleteProjectSelector.FormattingEnabled = true;
+            this.DeleteProjectSelector.Location = new System.Drawing.Point(120, 198);
+            this.DeleteProjectSelector.Name = "DeleteProjectSelector";
+            this.DeleteProjectSelector.Size = new System.Drawing.Size(258, 21);
+            this.DeleteProjectSelector.TabIndex = 50;
+            // 
+            // EditorConfirmDeleteProject
+            // 
+            this.EditorConfirmDeleteProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditorConfirmDeleteProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditorConfirmDeleteProject.Location = new System.Drawing.Point(245, 238);
+            this.EditorConfirmDeleteProject.Name = "EditorConfirmDeleteProject";
+            this.EditorConfirmDeleteProject.Size = new System.Drawing.Size(130, 25);
+            this.EditorConfirmDeleteProject.TabIndex = 51;
+            this.EditorConfirmDeleteProject.Text = "Delete Project";
+            this.EditorConfirmDeleteProject.UseVisualStyleBackColor = true;
+            this.EditorConfirmDeleteProject.Click += new System.EventHandler(this.EditorConfirmDeleteProject_Click);
             // 
             // Main
             // 
@@ -917,12 +1009,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(350, 500);
+            this.Controls.Add(this.EditorAddProjectPanel);
             this.Controls.Add(this.SettingsPanel);
             this.Controls.Add(this.QuickAddProject);
             this.Controls.Add(this.QuickProjectSelector);
             this.Controls.Add(this.NotificationsLabel);
             this.Controls.Add(this.Settings);
-            this.Controls.Add(this.EditorAddProjectPanel);
             this.Controls.Add(this.EditorPanel);
             this.Controls.Add(this.ActivitiesDisplay);
             this.Controls.Add(this.InputActivity);
@@ -965,6 +1057,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Settings)).EndInit();
             this.SettingsPanel.ResumeLayout(false);
             this.SettingsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1039,6 +1132,13 @@
         private System.Windows.Forms.Label NotificationsLabel;
         private System.Windows.Forms.ComboBox QuickProjectSelector;
         private System.Windows.Forms.Button QuickAddProject;
+        private System.Windows.Forms.Button ResetProgramButton;
+        private System.Windows.Forms.Label SettingsHeader_Program;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label EditorHeader_DeleteProject;
+        private System.Windows.Forms.Label EditorLabel_DeleteProjectName;
+        private System.Windows.Forms.ComboBox DeleteProjectSelector;
+        private System.Windows.Forms.Button EditorConfirmDeleteProject;
     }
 }
 

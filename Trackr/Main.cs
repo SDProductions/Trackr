@@ -108,7 +108,8 @@ namespace Trackr
 
             if (!File.Exists(resourcesFolder + @"\" + existingProjectsFile))
             {
-                File.Create(resourcesFolder + @"\" + existingProjectsFile);
+                using (var projectsFileStream = File.Create(resourcesFolder + @"\" + existingProjectsFile))
+                { }
             }
             else
             {
@@ -116,7 +117,7 @@ namespace Trackr
                 projects = JsonConvert.DeserializeObject<List<Tuple<string, Color>>>(json);
             }
 
-            if (projects != null)
+            if (projects.Count != 0)
             {
                 for (int p = projects.Count - 1; p >= 0; p--)
                 {
@@ -134,6 +135,8 @@ namespace Trackr
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                     QuickProjectSelector.Items.Add(projects[p].Item1);
+                    if (projects[p].Item1 != "No Project")
+                        DeleteProjectSelector.Items.Add(projects[p].Item1);
                 }
             }
             QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf("No Project");
@@ -467,10 +470,13 @@ namespace Trackr
 
                 EditorProjectSelector.Items.Clear();
                 QuickProjectSelector.Items.Clear();
+                DeleteProjectSelector.Items.Clear();
                 for (int p = 0; p < projects.Count; p++)
                 {
                     EditorProjectSelector.Items.Add(projects[p].Item1);
                     QuickProjectSelector.Items.Add(projects[p].Item1);
+                    if (projects[p].Item1 != "No Project")
+                        DeleteProjectSelector.Items.Add(projects[p].Item1);
                 }
 
                 EditorProjectSelector.SelectedIndex = EditorProjectSelector.FindStringExact(EditorNewProjectName.Text);
@@ -481,6 +487,33 @@ namespace Trackr
                 EditorNewProjectColorRGB_G.Value = 0;
                 EditorNewProjectColorRGB_B.Value = 0;
 
+
+                EditorCancelAddProject_Click(sender, e);
+            }
+        }
+
+        private void EditorConfirmDeleteProject_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(DeleteProjectSelector.Text))
+            {
+                var toRemove = (from p in projects
+                                where p.Item1 == DeleteProjectSelector.Text
+                                select p).FirstOrDefault();
+                projects.Remove(toRemove);
+
+                EditorProjectSelector.Items.Clear();
+                QuickProjectSelector.Items.Clear();
+                DeleteProjectSelector.Items.Clear();
+                for (int p = 0; p < projects.Count; p++)
+                {
+                    EditorProjectSelector.Items.Add(projects[p].Item1);
+                    QuickProjectSelector.Items.Add(projects[p].Item1);
+                    if (projects[p].Item1 != "No Project")
+                        DeleteProjectSelector.Items.Add(projects[p].Item1);
+                }
+
+                EditorProjectSelector.SelectedIndex = EditorProjectSelector.FindStringExact("No Project");
+                QuickProjectSelector.SelectedIndex = QuickProjectSelector.FindStringExact("No Project");
 
                 EditorCancelAddProject_Click(sender, e);
             }
