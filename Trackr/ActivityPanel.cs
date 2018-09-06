@@ -72,6 +72,7 @@ namespace Trackr
                 for (int t = 0; t < 50; t++)
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
+                    Main.ActiveForm.Update();
                 }
             }
             else
@@ -79,6 +80,7 @@ namespace Trackr
                 for (int t = 0; t < 50; t++)
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
+                    Main.ActiveForm.Update();
                 }
                 
                 if (!(int.Parse(GetControl("EditorActivityID").Text) == this.activityID))
@@ -88,6 +90,7 @@ namespace Trackr
                     for (int t = 0; t < 50; t++)
                     {
                         Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
+                        Main.ActiveForm.Update();
                     }
                 }
             }

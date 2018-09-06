@@ -274,25 +274,27 @@ namespace Trackr
         {
             if (Size.Width == 350)
             {
+                EditorAddProjectPanel.Visible = true;
+                EditorPanel.Visible = false;
+
                 for (int t = 0; t < 50; t++)
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
+                    Update();
                 }
-
-                EditorAddProjectPanel.Visible = true;
-                EditorPanel.Visible = false;
 
                 EditorActivityID.Text = "-1";
             }
             else
             {
+                EditorAddProjectPanel.Visible = false;
+                EditorPanel.Visible = true;
+
                 for (int t = 0; t < 50; t++)
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
+                    Update();
                 }
-
-                EditorAddProjectPanel.Visible = false;
-                EditorPanel.Visible = true;
             }
         }
 
@@ -454,6 +456,7 @@ namespace Trackr
                 for (int t = 0; t < 50; t++)
                 {
                     Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
+                    Update();
                 }
             }
         }
@@ -537,6 +540,7 @@ namespace Trackr
             for (int t = 0; t < 50; t++)
             {
                 Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
+                Update();
             }
         }
 
