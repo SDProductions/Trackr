@@ -1,5 +1,7 @@
 # Trackr
 
+[![Build Status](https://travis-ci.org/SDProductions/Trackr.svg?branch=master)](https://travis-ci.org/SDProductions/Trackr) [![Github All Releases](https://img.shields.io/github/downloads/SDProductions/Trackr/total.svg)]()
+
 <b>Do you suck at time management?</b>
 <b>Do you like using past experiences and data to improve upon your workflow and better optimize your day?</b>
 <b>Do you regularly wear metaphorical tin-foil hats all day and/or night?</b>
