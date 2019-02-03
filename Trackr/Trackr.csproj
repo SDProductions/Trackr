@@ -93,9 +93,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\home-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\baseline-calendar_today-24px.png" />
     <Content Include="Resources\close.png" />
     <None Include="Resources\close1.png" />
