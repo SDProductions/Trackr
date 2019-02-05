@@ -48,10 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityPanel.cs">
+    <Compile Include="Trackr\Controls\ActivityPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ActivityPanel.Designer.cs">
+    <Compile Include="Trackr\Controls\ActivityPanel.Designer.cs">
       <DependentUpon>ActivityPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ActivityPanel.resx">
+    <EmbeddedResource Include="Trackr\Controls\ActivityPanel.resx">
       <DependentUpon>ActivityPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">

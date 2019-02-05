@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trackr
@@ -26,7 +21,7 @@ namespace Trackr
 
         private Control GetControl(string key)
         {
-            return Main.ActiveForm.Controls.Find(key, true)[0];
+            return Main.ActiveForm.Controls.Find(key, true).FirstOrDefault();
         }
 
         private void SetEditorInfo()

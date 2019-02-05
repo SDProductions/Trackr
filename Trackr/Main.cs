@@ -12,15 +12,13 @@ namespace Trackr
     public partial class Main : Form
     {
         private string resourcesFolder = "Resources";
-        private string existingProjectsFile = "projects.json";
+        private string projectsFile = "projects.json";
 
         internal List<ActivityPanel> activities = new List<ActivityPanel>();
         internal ActivityPanel activeActivity;
         internal List<Tuple<string, Color>> projects = new List<Tuple<string, Color>>();
-
-        internal int secondsElapsed = 0;
-        internal int minutesElapsed = 0;
-        internal int hoursElapsed = 0;
+        
+        internal DateTime startDate = DateTime.Now;
 
         private bool mouseDown;
         private Point lastLocation;
@@ -42,7 +40,7 @@ namespace Trackr
                         control.Location.Y + 60);
                 }
 
-                newActivityID = activities[(activities.Count - 1)].activityID + 1;
+                newActivityID = activities[activities.Count - 1].activityID + 1;
             }
             
             var newPanel = new ActivityPanel
@@ -67,27 +65,11 @@ namespace Trackr
             newPanel.ProjectColor.BackColor = projectTuple.Item2;
 
             activities.Add(newPanel);
-            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(newPanel);
+            ActivitiesDisplay.Controls.Add(newPanel);
 
             activeActivity = newPanel;
             ActivtyTimer.Start();
             StartInputActivity.Text = "Stop";
-        }
-
-        struct ActivityInfo
-        {
-            public string name;
-            public string startTime;
-            public string endTime;
-            public int day;
-            public string month;
-
-            public string projName;
-            public Color projColor;
-
-            public string details;
-
-            public int ID;
         }
 
         public Main()
@@ -100,15 +82,11 @@ namespace Trackr
             if (!Directory.Exists(resourcesFolder))
                 Directory.CreateDirectory(resourcesFolder);
 
-            if (!File.Exists(resourcesFolder + @"\" + existingProjectsFile))
-            {
-                using (var projectsFileStream = File.Create(resourcesFolder + @"\" + existingProjectsFile))
-                { //wait what does this do
-                }
-            }
+            if (!File.Exists(resourcesFolder + @"\" + projectsFile))
+                File.Create(resourcesFolder + @"\" + projectsFile);
             else
             {
-                string json = File.ReadAllText(resourcesFolder + @"\" + existingProjectsFile);
+                string json = File.ReadAllText(resourcesFolder + @"\" + projectsFile);
                 projects = JsonConvert.DeserializeObject<List<Tuple<string, Color>>>(json);
             }
 
@@ -200,9 +178,6 @@ namespace Trackr
             {
                 activeActivity.endTime = DateTime.Now.ToShortTimeString();
                 ActivtyTimer.Stop();
-                secondsElapsed = 0;
-                minutesElapsed = 0;
-                hoursElapsed = 0;
                 InputActivity.Text = "What are you doing?";
                 StartInputActivity.BackColor = Color.FromArgb(67, 87, 114);
                 StartInputActivity.Text = "Start";
@@ -257,47 +232,12 @@ namespace Trackr
         private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
             activities.Remove(activeActivity);
-            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Remove(activeActivity);
-
-            secondsElapsed++;
-            if (secondsElapsed >= 60)
-            {
-                secondsElapsed = 0;
-                minutesElapsed++;
-            }
-            if (minutesElapsed >= 60)
-            {
-                minutesElapsed = 0;
-                hoursElapsed++;
-            }
-            if (hoursElapsed >= 99)
-            {
-                hoursElapsed = 99;
-                minutesElapsed = 59;
-                secondsElapsed = 59;
-                StartInputActivity_Click(sender, e);
-            }
-
-            string timeConstruct = "";
-            if (hoursElapsed < 10)
-                timeConstruct += $"0{hoursElapsed}:";
-            else
-                timeConstruct += $"{hoursElapsed}:";
-
-            if (minutesElapsed < 10)
-                timeConstruct += $"0{minutesElapsed}:";
-            else
-                timeConstruct += $"{minutesElapsed}:";
-
-            if (secondsElapsed < 10)
-                timeConstruct += $"0{secondsElapsed}";
-            else
-                timeConstruct += $"{secondsElapsed}";
-
-            activeActivity.ActivityTime.Text = $"{timeConstruct}s";
+            ActivitiesDisplay.Controls.Remove(activeActivity);
+            
+            activeActivity.ActivityTime.Text = (DateTime.Now - startDate).ToString().Substring(0, 8);
 
             activities.Add(activeActivity);
-            Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls.Add(activeActivity);
+            ActivitiesDisplay.Controls.Add(activeActivity);
         }
 
         private dynamic EditSelectedActivity()
@@ -336,6 +276,7 @@ namespace Trackr
             EditorCalendarMonth.Text = EditSelectedActivity().month.ToString();
         }
 
+        #region Editor - Projects
         public void EditorChangeProjectRGB(Color color)
         {
             EditorProjectColorRGB_R.Value = color.R;
@@ -475,6 +416,7 @@ namespace Trackr
                 EditorCancelAddProject_Click(sender, e);
             }
         }
+        #endregion
 
         private void EditorActivityDetails_Click(object sender, EventArgs e)
         {
