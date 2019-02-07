@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,15 +14,13 @@ namespace Trackr
     {
         private string resourcesFolder = "Resources";
         private string projectsFile = "projects.json";
-
-        internal List<ActivityPanel> activities = new List<ActivityPanel>();
+        
         internal ActivityPanel activeActivity;
+        internal List<ActivityPanel> activities = new List<ActivityPanel>();
         internal List<Tuple<string, Color>> projects = new List<Tuple<string, Color>>();
 
         private bool mouseDown;
         private Point lastLocation;
-
-        internal string[] monthCodes = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
         internal void InitializeActivity()
         {
@@ -40,14 +39,11 @@ namespace Trackr
 
                 newActivityID = activities[activities.Count - 1].activityID + 1;
             }
-            
+
             var newPanel = new ActivityPanel
             {
                 Location = new Point(0, 0),
-
                 activityID = newActivityID,
-                day = DateTime.Today.Day,
-                month = monthCodes[DateTime.Today.Month - 1]
             };
 
             if (InputActivity.Text != "What are you doing?")
@@ -180,9 +176,7 @@ namespace Trackr
                 StartInputActivity.Text = "Start";
             }
             else
-            {
                 InitializeActivity();
-            }
         }
 
         private void InputActivity_KeyDown(object sender, KeyEventArgs e)
@@ -218,26 +212,35 @@ namespace Trackr
                 EditorAddProjectPanel.Visible = false;
                 EditorPanel.Visible = true;
 
-                for (int t = 0; t < 50; t++)
-                {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
-                    Update();
-                }
+                CloseEditor_Click(sender, e);
             }
         }
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
+            //remove activity from view
             activities.Remove(activeActivity);
             ActivitiesDisplay.Controls.Remove(activeActivity);
-            
-            activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString().Substring(0, 8);
 
+            //if time difference greater than a day, display day counter
+            if ((DateTime.Now - activeActivity.startTime).Days != 0)
+                activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"dd\.hh\:mm");
+            else
+                activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"hh\:mm\:ss");
+
+            //if time difference is negative, switch colors to red to denote countdown
+            if ((DateTime.Now - activeActivity.startTime).Seconds < 0)
+                activeActivity.ActivityTime.ForeColor = Color.FromArgb(224, 102, 102);
+            else
+                activeActivity.ActivityTime.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
+
+            //TODO: Make updating activities less crappy
+            //add activity back into view
             activities.Add(activeActivity);
             ActivitiesDisplay.Controls.Add(activeActivity);
         }
 
-        private dynamic EditSelectedActivity()
+        private ActivityPanel EditSelectedActivity()
         {
             return (from a in activities
                     where a.activityID == int.Parse(EditorActivityID.Text)
@@ -251,26 +254,18 @@ namespace Trackr
 
         private void EditorDateNext_Click(object sender, EventArgs e)
         {
-            DateTime storedDate = new DateTime(DateTime.Now.Year,
-                                               monthCodes.ToList().IndexOf(EditSelectedActivity().month),
-                                               EditSelectedActivity().day);
-            EditSelectedActivity().day = storedDate.AddDays(1).Day;
-            EditSelectedActivity().month = monthCodes[storedDate.AddDays(1).Month];
+            EditSelectedActivity().startTime = EditSelectedActivity().startTime.AddDays(1);
 
-            EditorCalendarDay.Text = EditSelectedActivity().day.ToString();
-            EditorCalendarMonth.Text = EditSelectedActivity().month.ToString();
+            EditorCalendarDay.Text = EditSelectedActivity().startTime.Day.ToString();
+            EditorCalendarMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(EditSelectedActivity().startTime.Month);
         }
 
         private void EditorDatePrevious_Click(object sender, EventArgs e)
         {
-            DateTime storedDate = new DateTime(DateTime.Now.Year,
-                                              monthCodes.ToList().IndexOf(EditSelectedActivity().month),
-                                              EditSelectedActivity().day);
-            EditSelectedActivity().day = storedDate.AddDays(-1).Day;
-            EditSelectedActivity().month = monthCodes[storedDate.AddDays(-1).Month];
-
-            EditorCalendarDay.Text = EditSelectedActivity().day.ToString();
-            EditorCalendarMonth.Text = EditSelectedActivity().month.ToString();
+            EditSelectedActivity().startTime = EditSelectedActivity().startTime.AddDays(-1);
+            
+            EditorCalendarDay.Text = EditSelectedActivity().startTime.Day.ToString();
+            EditorCalendarMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(EditSelectedActivity().startTime.Month);
         }
 
         #region Editor - Projects

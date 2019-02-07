@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,8 +11,6 @@ namespace Trackr
         public int activityID = -1;
         public DateTime startTime = DateTime.Now;
         public string endTime = "00:00 PM";
-        public int day = 1;
-        public string month = "JAN";
         public string details = "None!";
         
         public ActivityPanel()
@@ -50,9 +49,9 @@ namespace Trackr
             Control endTime = GetControl("EditorTimeEnd");
             endTime.Text = this.endTime;
             Control day = GetControl("EditorCalendarDay");
-            day.Text = this.day.ToString();
+            day.Text = this.startTime.Day.ToString();
             Control month = GetControl("EditorCalendarMonth");
-            month.Text = this.month;
+            month.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(this.startTime.Month);
 
             Control details = GetControl("EditorActivityDetails");
             details.Text = this.details;
