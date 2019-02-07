@@ -64,9 +64,9 @@
             this.ActivityTime.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActivityTime.Location = new System.Drawing.Point(200, 25);
             this.ActivityTime.Name = "ActivityTime";
-            this.ActivityTime.Size = new System.Drawing.Size(109, 21);
+            this.ActivityTime.Size = new System.Drawing.Size(98, 21);
             this.ActivityTime.TabIndex = 4;
-            this.ActivityTime.Text = "00:00:00s";
+            this.ActivityTime.Text = "00:00:00";
             // 
             // pictureBox1
             // 
@@ -80,6 +80,7 @@
             // ProjectColor
             // 
             this.ProjectColor.BackColor = System.Drawing.Color.SteelBlue;
+            this.ProjectColor.Dock = System.Windows.Forms.DockStyle.Top;
             this.ProjectColor.Location = new System.Drawing.Point(0, 0);
             this.ProjectColor.Name = "ProjectColor";
             this.ProjectColor.Size = new System.Drawing.Size(350, 10);
@@ -88,6 +89,7 @@
             // 
             // ExpandActivityInfo
             // 
+            this.ExpandActivityInfo.Dock = System.Windows.Forms.DockStyle.Right;
             this.ExpandActivityInfo.FlatAppearance.BorderSize = 0;
             this.ExpandActivityInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExpandActivityInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

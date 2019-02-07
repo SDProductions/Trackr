@@ -8,7 +8,7 @@ namespace Trackr
     public partial class ActivityPanel : UserControl
     {
         public int activityID = -1;
-        public string startTime = "--:-- --";
+        public DateTime startTime = DateTime.Now;
         public string endTime = "00:00 PM";
         public int day = 1;
         public string month = "JAN";
@@ -46,7 +46,7 @@ namespace Trackr
             colorSideBar.BackColor = ProjectColor.BackColor;
 
             Control startTime = GetControl("EditorTimeStart");
-            startTime.Text = this.startTime;
+            startTime.Text = this.startTime.ToShortTimeString();
             Control endTime = GetControl("EditorTimeEnd");
             endTime.Text = this.endTime;
             Control day = GetControl("EditorCalendarDay");

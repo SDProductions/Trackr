@@ -17,8 +17,6 @@ namespace Trackr
         internal List<ActivityPanel> activities = new List<ActivityPanel>();
         internal ActivityPanel activeActivity;
         internal List<Tuple<string, Color>> projects = new List<Tuple<string, Color>>();
-        
-        internal DateTime startDate = DateTime.Now;
 
         private bool mouseDown;
         private Point lastLocation;
@@ -48,7 +46,6 @@ namespace Trackr
                 Location = new Point(0, 0),
 
                 activityID = newActivityID,
-                startTime = DateTime.Now.ToShortTimeString(),
                 day = DateTime.Today.Day,
                 month = monthCodes[DateTime.Today.Month - 1]
             };
@@ -234,7 +231,7 @@ namespace Trackr
             activities.Remove(activeActivity);
             ActivitiesDisplay.Controls.Remove(activeActivity);
             
-            activeActivity.ActivityTime.Text = (DateTime.Now - startDate).ToString().Substring(0, 8);
+            activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString().Substring(0, 8);
 
             activities.Add(activeActivity);
             ActivitiesDisplay.Controls.Add(activeActivity);
