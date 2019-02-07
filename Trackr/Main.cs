@@ -22,49 +22,7 @@ namespace Trackr
         private bool mouseDown;
         private Point lastLocation;
 
-        internal void InitializeActivity()
-        {
-            int newActivityID = 0;
-
-            if (activities.Count != 0)
-            {
-                for (int p = 0; p < activities.Count(); p++)
-                {
-                    var controls = Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls;
-                    var control = controls[controls.IndexOf(activities[p])];
-                    control.Location = new Point(
-                        control.Location.X,
-                        control.Location.Y + 60);
-                }
-
-                newActivityID = activities[activities.Count - 1].activityID + 1;
-            }
-
-            var newPanel = new ActivityPanel
-            {
-                Location = new Point(0, 0),
-                activityID = newActivityID,
-            };
-
-            if (InputActivity.Text != "What are you doing?")
-                newPanel.ActivityName.Text = InputActivity.Text;
-            else
-                newPanel.ActivityName.Text = "Unknown Activity";
-
-            newPanel.ProjectName.Text = QuickProjectSelector.SelectedItem.ToString();
-            var projectTuple = (from p in projects
-                                where p.Item1 == QuickProjectSelector.SelectedItem.ToString()
-                                select p).FirstOrDefault();
-            newPanel.ProjectColor.BackColor = projectTuple.Item2;
-
-            activities.Add(newPanel);
-            ActivitiesDisplay.Controls.Add(newPanel);
-
-            activeActivity = newPanel;
-            ActivtyTimer.Start();
-            StartInputActivity.Text = "Stop";
-        }
-
+        #region Startup
         public Main()
         {
             InitializeComponent();
@@ -107,6 +65,7 @@ namespace Trackr
             }
             QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf("No Project");
         }
+        #endregion
 
         #region Basic Window Functions
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -160,6 +119,7 @@ namespace Trackr
         }
         #endregion
 
+        #region Trackr - Main Controls
         private void InputActivity_Click(object sender, EventArgs e)
         {
             InputActivity.Text = "";
@@ -215,6 +175,51 @@ namespace Trackr
                 CloseEditor_Click(sender, e);
             }
         }
+        #endregion
+
+        #region Trackr - ActivityPanel Management
+        internal void InitializeActivity()
+        {
+            int newActivityID = 0;
+
+            if (activities.Count != 0)
+            {
+                for (int p = 0; p < activities.Count(); p++)
+                {
+                    var controls = Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls;
+                    var control = controls[controls.IndexOf(activities[p])];
+                    control.Location = new Point(
+                        control.Location.X,
+                        control.Location.Y + 60);
+                }
+
+                newActivityID = activities[activities.Count - 1].activityID + 1;
+            }
+
+            var newPanel = new ActivityPanel
+            {
+                Location = new Point(0, 0),
+                activityID = newActivityID,
+            };
+
+            if (InputActivity.Text != "What are you doing?")
+                newPanel.ActivityName.Text = InputActivity.Text;
+            else
+                newPanel.ActivityName.Text = "Unknown Activity";
+
+            newPanel.ProjectName.Text = QuickProjectSelector.SelectedItem.ToString();
+            var projectTuple = (from p in projects
+                                where p.Item1 == QuickProjectSelector.SelectedItem.ToString()
+                                select p).FirstOrDefault();
+            newPanel.ProjectColor.BackColor = projectTuple.Item2;
+
+            activities.Add(newPanel);
+            ActivitiesDisplay.Controls.Add(newPanel);
+
+            activeActivity = newPanel;
+            ActivtyTimer.Start();
+            StartInputActivity.Text = "Stop";
+        }
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
@@ -239,6 +244,7 @@ namespace Trackr
             activities.Add(activeActivity);
             ActivitiesDisplay.Controls.Add(activeActivity);
         }
+        #endregion
 
         private ActivityPanel EditSelectedActivity()
         {
@@ -247,26 +253,27 @@ namespace Trackr
                     select a).FirstOrDefault();
         }
 
-        private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
-        {
-            EditSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
-        }
-
+        #region Editor - Date and Time
         private void EditorDateNext_Click(object sender, EventArgs e)
         {
+            //add one day to selected activity
             EditSelectedActivity().startTime = EditSelectedActivity().startTime.AddDays(1);
 
+            //update this on the editor
             EditorCalendarDay.Text = EditSelectedActivity().startTime.Day.ToString();
             EditorCalendarMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(EditSelectedActivity().startTime.Month);
         }
 
         private void EditorDatePrevious_Click(object sender, EventArgs e)
         {
+            //subtract one day to selected activity
             EditSelectedActivity().startTime = EditSelectedActivity().startTime.AddDays(-1);
-            
+
+            //update this on the editor
             EditorCalendarDay.Text = EditSelectedActivity().startTime.Day.ToString();
             EditorCalendarMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(EditSelectedActivity().startTime.Month);
         }
+        #endregion
 
         #region Editor - Projects
         public void EditorChangeProjectRGB(Color color)
@@ -410,6 +417,12 @@ namespace Trackr
         }
         #endregion
 
+        #region Editor - Title and Description
+        private void EditorActivityTitle_TextChanged(object sender, EventArgs e)
+        {
+            EditSelectedActivity().ActivityName.Text = EditorActivityTitle.Text;
+        }
+
         private void EditorActivityDetails_Click(object sender, EventArgs e)
         {
             if (EditorActivityDetails.Text == "None!")
@@ -420,6 +433,7 @@ namespace Trackr
         {
             EditSelectedActivity().details = EditorActivityDetails.Text;
         }
+        #endregion
 
         private void CloseEditor_Click(object sender, EventArgs e)
         {
