@@ -63,9 +63,9 @@ namespace Trackr
             {
                 SetEditorInfo();
 
-                for (int t = 0; t < 50; t++)
+                for (int t = 0; t < 25; t++)
                 {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
+                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 16, 500);
                     Main.ActiveForm.Update();
                 }
             }

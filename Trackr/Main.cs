@@ -17,7 +17,7 @@ namespace Trackr
         
         internal ActivityPanel activeActivity;
         internal List<ActivityPanel> activities = new List<ActivityPanel>();
-        internal List<Tuple<string, Color>> projects = new List<Tuple<string, Color>>();
+        internal List<Tuple<string, Color>> projects;
 
         private bool mouseDown;
         private Point lastLocation;
@@ -34,14 +34,17 @@ namespace Trackr
                 Directory.CreateDirectory(resourcesFolder);
 
             if (!File.Exists(resourcesFolder + @"\" + projectsFile))
+            {
+                projects = new List<Tuple<string, Color>>();
                 File.Create(resourcesFolder + @"\" + projectsFile);
+            }
             else
             {
                 string json = File.ReadAllText(resourcesFolder + @"\" + projectsFile);
                 projects = JsonConvert.DeserializeObject<List<Tuple<string, Color>>>(json);
             }
 
-            if (projects.Count != 0)
+            if (projects != null && projects.Count != 0)
             {
                 for (int p = projects.Count - 1; p >= 0; p--)
                 {
@@ -446,7 +449,7 @@ namespace Trackr
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //TODO: AUTOSAVE PROJECTS
+            File.WriteAllText(projectsFile, JsonConvert.SerializeObject(projects));
         }
     }
 }
