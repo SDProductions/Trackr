@@ -59,35 +59,8 @@ namespace Trackr
 
         private void ExpandActivityInfo_Click(object sender, EventArgs e)
         {
-            if (Main.ActiveForm.Size.Width == 350)
-            {
-                SetEditorInfo();
-
-                for (int t = 0; t < 25; t++)
-                {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 16, 500);
-                    Main.ActiveForm.Update();
-                }
-            }
-            else
-            {
-                for (int t = 0; t < 50; t++)
-                {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
-                    Main.ActiveForm.Update();
-                }
-                
-                if (!(int.Parse(GetControl("EditorActivityID").Text) == this.activityID))
-                {
-                    SetEditorInfo();
-
-                    for (int t = 0; t < 50; t++)
-                    {
-                        Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
-                        Main.ActiveForm.Update();
-                    }
-                }
-            }
+            SetEditorInfo();
+            Main.ActiveForm.AutoSize = !Main.ActiveForm.AutoSize;
         }
     }
 }

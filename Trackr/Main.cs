@@ -12,8 +12,8 @@ namespace Trackr
 {
     public partial class Main : Form
     {
-        private string resourcesFolder = "Resources";
-        private string projectsFile = "projects.json";
+        private readonly string resourcesFolder = "Resources";
+        private readonly string projectsFile = "projects.json";
         
         internal ActivityPanel activeActivity;
         internal List<ActivityPanel> activities = new List<ActivityPanel>();
@@ -36,7 +36,7 @@ namespace Trackr
             if (!File.Exists(resourcesFolder + @"\" + projectsFile))
             {
                 projects = new List<Tuple<string, Color>>();
-                File.Create(resourcesFolder + @"\" + projectsFile);
+                File.Create(resourcesFolder + @"\" + projectsFile).Close();
             }
             else
             {
@@ -157,16 +157,12 @@ namespace Trackr
 
         private void QuickAddProject_Click(object sender, EventArgs e)
         {
-            if (Size.Width == 350)
+            if (!Main.ActiveForm.AutoSize)
             {
                 EditorAddProjectPanel.Visible = true;
                 EditorPanel.Visible = false;
 
-                for (int t = 0; t < 50; t++)
-                {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width + 8, 500);
-                    Update();
-                }
+                Main.ActiveForm.AutoSize = !Main.ActiveForm.AutoSize;
 
                 EditorActivityID.Text = "-1";
             }
@@ -440,11 +436,7 @@ namespace Trackr
 
         private void CloseEditor_Click(object sender, EventArgs e)
         {
-            for (int t = 0; t < 50; t++)
-            {
-                ActiveForm.Size = new Size(ActiveForm.Size.Width - 8, 500);
-                Update();
-            }
+            Main.ActiveForm.AutoSize = false;
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
