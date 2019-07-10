@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,7 +25,7 @@ namespace Trackr
         private void SetEditorInfo()
         {
             Control id = GetControl("EditorActivityID");
-            id.Text = this.activityID.ToString();
+            id.Text = activityID.ToString();
 
             Control title = GetControl("EditorActivityTitle");
             title.Text = ActivityName.Text;

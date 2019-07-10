@@ -93,10 +93,10 @@
             this.Minimize = new System.Windows.Forms.PictureBox();
             this.Maximize = new System.Windows.Forms.PictureBox();
             this.ClientIcon = new System.Windows.Forms.PictureBox();
-            this.ClientControlBar = new System.Windows.Forms.PictureBox();
             this.EditorBackground = new System.Windows.Forms.Panel();
             this.QuickProjectSelector = new System.Windows.Forms.ComboBox();
             this.QuickAddProject = new System.Windows.Forms.Button();
+            this.ClientControlBar = new System.Windows.Forms.Panel();
             this.EditorPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSplitter3)).BeginInit();
             this.EditorDateSelector.SuspendLayout();
@@ -116,7 +116,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClientControlBar)).BeginInit();
+            this.ClientControlBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // ClientTitle
@@ -125,7 +125,7 @@
             this.ClientTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
             this.ClientTitle.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClientTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientTitle.Location = new System.Drawing.Point(44, 7);
+            this.ClientTitle.Location = new System.Drawing.Point(47, 8);
             this.ClientTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ClientTitle.Name = "ClientTitle";
             this.ClientTitle.Size = new System.Drawing.Size(110, 23);
@@ -139,7 +139,7 @@
             this.StartInputActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartInputActivity.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartInputActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.StartInputActivity.Location = new System.Drawing.Point(347, 49);
+            this.StartInputActivity.Location = new System.Drawing.Point(343, 45);
             this.StartInputActivity.Margin = new System.Windows.Forms.Padding(4);
             this.StartInputActivity.Name = "StartInputActivity";
             this.StartInputActivity.Size = new System.Drawing.Size(120, 37);
@@ -156,7 +156,7 @@
             this.InputActivity.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.InputActivity.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InputActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(183)))), ((int)(((byte)(183)))));
-            this.InputActivity.Location = new System.Drawing.Point(21, 58);
+            this.InputActivity.Location = new System.Drawing.Point(20, 50);
             this.InputActivity.Margin = new System.Windows.Forms.Padding(4);
             this.InputActivity.Name = "InputActivity";
             this.InputActivity.Size = new System.Drawing.Size(307, 19);
@@ -889,7 +889,7 @@
             // 
             this.Minimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
             this.Minimize.Image = global::Trackr.Properties.Resources.minimize;
-            this.Minimize.Location = new System.Drawing.Point(387, 2);
+            this.Minimize.Location = new System.Drawing.Point(385, 4);
             this.Minimize.Margin = new System.Windows.Forms.Padding(4);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(35, 32);
@@ -904,7 +904,7 @@
             // 
             this.Maximize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
             this.Maximize.Image = global::Trackr.Properties.Resources.close;
-            this.Maximize.Location = new System.Drawing.Point(427, 2);
+            this.Maximize.Location = new System.Drawing.Point(428, 4);
             this.Maximize.Margin = new System.Windows.Forms.Padding(4);
             this.Maximize.Name = "Maximize";
             this.Maximize.Size = new System.Drawing.Size(35, 32);
@@ -919,26 +919,13 @@
             // 
             this.ClientIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
             this.ClientIcon.Image = global::Trackr.Properties.Resources.program_ico;
-            this.ClientIcon.Location = new System.Drawing.Point(4, 2);
+            this.ClientIcon.Location = new System.Drawing.Point(4, 4);
             this.ClientIcon.Margin = new System.Windows.Forms.Padding(4);
             this.ClientIcon.Name = "ClientIcon";
             this.ClientIcon.Size = new System.Drawing.Size(35, 32);
             this.ClientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ClientIcon.TabIndex = 2;
             this.ClientIcon.TabStop = false;
-            // 
-            // ClientControlBar
-            // 
-            this.ClientControlBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
-            this.ClientControlBar.Location = new System.Drawing.Point(0, 0);
-            this.ClientControlBar.Margin = new System.Windows.Forms.Padding(4);
-            this.ClientControlBar.Name = "ClientControlBar";
-            this.ClientControlBar.Size = new System.Drawing.Size(467, 135);
-            this.ClientControlBar.TabIndex = 0;
-            this.ClientControlBar.TabStop = false;
-            this.ClientControlBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseDown);
-            this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
-            this.ClientControlBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseUp);
             // 
             // EditorBackground
             // 
@@ -955,7 +942,7 @@
             this.QuickProjectSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.QuickProjectSelector.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(87)))), ((int)(((byte)(114)))));
             this.QuickProjectSelector.FormattingEnabled = true;
-            this.QuickProjectSelector.Location = new System.Drawing.Point(21, 94);
+            this.QuickProjectSelector.Location = new System.Drawing.Point(20, 90);
             this.QuickProjectSelector.Margin = new System.Windows.Forms.Padding(4);
             this.QuickProjectSelector.Name = "QuickProjectSelector";
             this.QuickProjectSelector.Size = new System.Drawing.Size(305, 24);
@@ -968,7 +955,7 @@
             this.QuickAddProject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.QuickAddProject.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.QuickAddProject.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.QuickAddProject.Location = new System.Drawing.Point(347, 92);
+            this.QuickAddProject.Location = new System.Drawing.Point(343, 88);
             this.QuickAddProject.Margin = new System.Windows.Forms.Padding(4);
             this.QuickAddProject.Name = "QuickAddProject";
             this.QuickAddProject.Size = new System.Drawing.Size(120, 27);
@@ -979,24 +966,35 @@
             this.QuickAddProject.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.QuickAddProject.MouseLeave += new System.EventHandler(this.SecondaryButton_MouseLeave);
             // 
+            // ClientControlBar
+            // 
+            this.ClientControlBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(57)))), ((int)(((byte)(83)))));
+            this.ClientControlBar.Controls.Add(this.ClientIcon);
+            this.ClientControlBar.Controls.Add(this.ClientTitle);
+            this.ClientControlBar.Controls.Add(this.QuickAddProject);
+            this.ClientControlBar.Controls.Add(this.QuickProjectSelector);
+            this.ClientControlBar.Controls.Add(this.Maximize);
+            this.ClientControlBar.Controls.Add(this.Minimize);
+            this.ClientControlBar.Controls.Add(this.InputActivity);
+            this.ClientControlBar.Controls.Add(this.StartInputActivity);
+            this.ClientControlBar.Location = new System.Drawing.Point(0, 0);
+            this.ClientControlBar.Name = "ClientControlBar";
+            this.ClientControlBar.Size = new System.Drawing.Size(467, 135);
+            this.ClientControlBar.TabIndex = 1;
+            this.ClientControlBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseDown);
+            this.ClientControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseMove);
+            this.ClientControlBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ClientControlBar_MouseUp);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(183)))), ((int)(((byte)(183)))));
             this.ClientSize = new System.Drawing.Size(467, 615);
+            this.Controls.Add(this.ClientControlBar);
             this.Controls.Add(this.EditorAddProjectPanel);
-            this.Controls.Add(this.QuickAddProject);
-            this.Controls.Add(this.QuickProjectSelector);
             this.Controls.Add(this.EditorPanel);
             this.Controls.Add(this.ActivitiesDisplay);
-            this.Controls.Add(this.InputActivity);
-            this.Controls.Add(this.StartInputActivity);
-            this.Controls.Add(this.Minimize);
-            this.Controls.Add(this.Maximize);
-            this.Controls.Add(this.ClientTitle);
-            this.Controls.Add(this.ClientIcon);
-            this.Controls.Add(this.ClientControlBar);
             this.Controls.Add(this.ProjectColorSideBar);
             this.Controls.Add(this.EditorBackground);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1028,15 +1026,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Minimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClientControlBar)).EndInit();
+            this.ClientControlBar.ResumeLayout(false);
+            this.ClientControlBar.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox ClientControlBar;
         private System.Windows.Forms.PictureBox ClientIcon;
         private System.Windows.Forms.Label ClientTitle;
         private System.Windows.Forms.PictureBox Maximize;
@@ -1103,6 +1099,7 @@
         private System.Windows.Forms.Label EditorLabel_DeleteProjectName;
         private System.Windows.Forms.ComboBox DeleteProjectSelector;
         private System.Windows.Forms.Button EditorConfirmDeleteProject;
+        private System.Windows.Forms.Panel ClientControlBar;
     }
 }
 

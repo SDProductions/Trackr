@@ -30,42 +30,35 @@ namespace Trackr
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // Check if directory & file exists already
             if (!Directory.Exists(resourcesFolder))
                 Directory.CreateDirectory(resourcesFolder);
 
+            // If file does not exist, create new
             if (!File.Exists(resourcesFolder + @"\" + projectsFile))
             {
-                projects = new List<Tuple<string, Color>>();
+                projects = new List<Tuple<string, Color>>
+                {
+                    new Tuple<string, Color>("No Project", Color.Gray)
+                };
                 File.Create(resourcesFolder + @"\" + projectsFile).Close();
             }
+            // If file exists, deserialize to object
             else
             {
                 string json = File.ReadAllText(resourcesFolder + @"\" + projectsFile);
                 projects = JsonConvert.DeserializeObject<List<Tuple<string, Color>>>(json);
             }
 
-            if (projects != null && projects.Count != 0)
+            // Add projects to relevant selectors
+            for (int p = projects.Count - 1; p >= 0; p--)
             {
-                for (int p = projects.Count - 1; p >= 0; p--)
-                {
-                    EditorProjectSelector.Items.Add(projects[p].Item1);
-                    QuickProjectSelector.Items.Add(projects[p].Item1);
-                }
+                EditorProjectSelector.Items.Add(projects[p].Item1);
+                QuickProjectSelector.Items.Add(projects[p].Item1);
+                if (projects[p].Item1 != "No Project")
+                    DeleteProjectSelector.Items.Add(projects[p].Item1);
             }
-            else
-            {
-                projects = new List<Tuple<string, Color>>
-                {
-                    new Tuple<string, Color>("No Project", Color.Gray)
-                };
-                for (int p = 0; p < projects.Count; p++)
-                {
-                    EditorProjectSelector.Items.Add(projects[p].Item1);
-                    QuickProjectSelector.Items.Add(projects[p].Item1);
-                    if (projects[p].Item1 != "No Project")
-                        DeleteProjectSelector.Items.Add(projects[p].Item1);
-                }
-            }
+
             QuickProjectSelector.SelectedIndex = QuickProjectSelector.Items.IndexOf("No Project");
         }
         #endregion
@@ -115,10 +108,8 @@ namespace Trackr
         private void ClientControlBar_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
-            {
                 Location = new Point((Location.X - lastLocation.X) + e.X,
                                      (Location.Y - lastLocation.Y) + e.Y);
-            }
         }
         #endregion
 
@@ -157,12 +148,12 @@ namespace Trackr
 
         private void QuickAddProject_Click(object sender, EventArgs e)
         {
-            if (!Main.ActiveForm.AutoSize)
+            if (!ActiveForm.AutoSize)
             {
                 EditorAddProjectPanel.Visible = true;
                 EditorPanel.Visible = false;
 
-                Main.ActiveForm.AutoSize = !Main.ActiveForm.AutoSize;
+                ActiveForm.AutoSize = true;
 
                 EditorActivityID.Text = "-1";
             }
@@ -171,7 +162,7 @@ namespace Trackr
                 EditorAddProjectPanel.Visible = false;
                 EditorPanel.Visible = true;
 
-                CloseEditor_Click(sender, e);
+                ActiveForm.AutoSize = false;
             }
         }
         #endregion
@@ -189,7 +180,7 @@ namespace Trackr
                     var control = controls[controls.IndexOf(activities[p])];
                     control.Location = new Point(
                         control.Location.X,
-                        control.Location.Y + 60);
+                        control.Location.Y + control.Height);
                 }
 
                 newActivityID = activities[activities.Count - 1].activityID + 1;
@@ -222,13 +213,9 @@ namespace Trackr
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
-            //remove activity from view
-            activities.Remove(activeActivity);
-            ActivitiesDisplay.Controls.Remove(activeActivity);
-
             //if time difference greater than a day, display day counter
             if ((DateTime.Now - activeActivity.startTime).Days != 0)
-                activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"dd\.hh\:mm");
+                activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"d\.hh\:mm\:ss");
             else
                 activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"hh\:mm\:ss");
 
@@ -237,11 +224,6 @@ namespace Trackr
                 activeActivity.ActivityTime.ForeColor = Color.FromArgb(224, 102, 102);
             else
                 activeActivity.ActivityTime.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
-
-            //TODO: Make updating activities less crappy
-            //add activity back into view
-            activities.Add(activeActivity);
-            ActivitiesDisplay.Controls.Add(activeActivity);
         }
         #endregion
 
@@ -345,13 +327,7 @@ namespace Trackr
             EditorPanel.Visible = true;
 
             if (EditorActivityID.Text == "-1")
-            {
-                for (int t = 0; t < 50; t++)
-                {
-                    Main.ActiveForm.Size = new Size(Main.ActiveForm.Size.Width - 8, 500);
-                    Update();
-                }
-            }
+                ActiveForm.AutoSize = false;
         }
 
         private void EditorConfirmAddProject_Click(object sender, EventArgs e)
