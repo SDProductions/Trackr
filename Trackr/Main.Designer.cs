@@ -177,7 +177,7 @@
             this.ActivitiesDisplay.Location = new System.Drawing.Point(0, 135);
             this.ActivitiesDisplay.Margin = new System.Windows.Forms.Padding(4);
             this.ActivitiesDisplay.Name = "ActivitiesDisplay";
-            this.ActivitiesDisplay.Size = new System.Drawing.Size(467, 443);
+            this.ActivitiesDisplay.Size = new System.Drawing.Size(467, 480);
             this.ActivitiesDisplay.TabIndex = 10;
             // 
             // EditorPanel
@@ -215,7 +215,7 @@
             this.EditorPanel.Location = new System.Drawing.Point(480, 0);
             this.EditorPanel.Margin = new System.Windows.Forms.Padding(0);
             this.EditorPanel.Name = "EditorPanel";
-            this.EditorPanel.Size = new System.Drawing.Size(520, 615);
+            this.EditorPanel.Size = new System.Drawing.Size(520, 640);
             this.EditorPanel.TabIndex = 12;
             // 
             // EditorApplyColor
@@ -881,7 +881,7 @@
             this.ProjectColorSideBar.Location = new System.Drawing.Point(467, 0);
             this.ProjectColorSideBar.Margin = new System.Windows.Forms.Padding(0);
             this.ProjectColorSideBar.Name = "ProjectColorSideBar";
-            this.ProjectColorSideBar.Size = new System.Drawing.Size(13, 615);
+            this.ProjectColorSideBar.Size = new System.Drawing.Size(13, 640);
             this.ProjectColorSideBar.TabIndex = 0;
             this.ProjectColorSideBar.TabStop = false;
             // 
@@ -990,7 +990,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(183)))), ((int)(((byte)(183)))));
-            this.ClientSize = new System.Drawing.Size(467, 615);
+            this.ClientSize = new System.Drawing.Size(467, 640);
             this.Controls.Add(this.ClientControlBar);
             this.Controls.Add(this.EditorAddProjectPanel);
             this.Controls.Add(this.EditorPanel);

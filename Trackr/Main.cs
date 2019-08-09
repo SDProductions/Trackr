@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AnimateForms.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trackr
@@ -19,8 +21,14 @@ namespace Trackr
         internal List<ActivityPanel> activities = new List<ActivityPanel>();
         internal List<Tuple<string, Color>> projects;
 
+        // Handle custom drag interface
         private bool mouseDown;
         private Point lastLocation;
+
+        // Look mum, it's the thing I made!
+        private readonly Animate _a = new Animate();
+
+        internal bool _isExpanded = false;
 
         #region Startup
         public Main()
@@ -111,6 +119,46 @@ namespace Trackr
                 Location = new Point((Location.X - lastLocation.X) + e.X,
                                      (Location.Y - lastLocation.Y) + e.Y);
         }
+
+        // Expands the window using AnimateForms (QuadInOut, 500ms)
+        private async Task ExpandWindow()
+        {
+            await _a.Resize(ActiveForm, Easings.QuadInOut, 500,
+                          new Size(1000, ActiveForm.Height));
+            _isExpanded = true;
+        }
+
+        // Contrats the window using AnimateForms (QuadInOut, 500ms)
+        private async Task UnexpandWindow()
+        {
+            await _a.Resize(ActiveForm, Easings.QuadInOut, 500,
+                          new Size(467, ActiveForm.Height));
+            _isExpanded = false;
+        }
+
+        private async void ShowActivityInfo(object sender, EventArgs e)
+        {
+            if (!_isExpanded)
+            {
+                EditorAddProjectPanel.Visible = false;
+                EditorPanel.Visible = true;
+                await ExpandWindow();
+            }
+            else if (!EditorPanel.Visible)
+            {
+                await UnexpandWindow();
+                EditorAddProjectPanel.Visible = false;
+                EditorPanel.Visible = true;
+                await ExpandWindow();
+            }
+            else if (sender.GetType() == typeof(ActivityPanel) &&
+                    (sender as ActivityPanel).activityID != int.Parse(EditorActivityID.Text))
+            {
+                await UnexpandWindow();
+                await ExpandWindow();
+            }
+            else await UnexpandWindow();
+        }
         #endregion
 
         #region Trackr - Main Controls
@@ -146,63 +194,57 @@ namespace Trackr
             }
         }
 
-        private void QuickAddProject_Click(object sender, EventArgs e)
+        private async void QuickAddProject_Click(object sender, EventArgs e)
         {
-            if (!ActiveForm.AutoSize)
+            if (!_isExpanded)
             {
                 EditorAddProjectPanel.Visible = true;
                 EditorPanel.Visible = false;
-
-                ActiveForm.AutoSize = true;
+                await ExpandWindow();
 
                 EditorActivityID.Text = "-1";
             }
-            else
+            else if (!EditorAddProjectPanel.Visible)
             {
-                EditorAddProjectPanel.Visible = false;
-                EditorPanel.Visible = true;
-
-                ActiveForm.AutoSize = false;
+                await UnexpandWindow();
+                EditorAddProjectPanel.Visible = true;
+                EditorPanel.Visible = false;
+                await ExpandWindow();
             }
+            else await UnexpandWindow();
         }
         #endregion
 
         #region Trackr - ActivityPanel Management
-        internal void InitializeActivity()
+        private void InitializeActivity()
         {
-            int newActivityID = 0;
-
-            if (activities.Count != 0)
-            {
-                for (int p = 0; p < activities.Count(); p++)
-                {
-                    var controls = Controls[Controls.IndexOfKey("ActivitiesDisplay")].Controls;
-                    var control = controls[controls.IndexOf(activities[p])];
-                    control.Location = new Point(
-                        control.Location.X,
-                        control.Location.Y + control.Height);
-                }
-
-                newActivityID = activities[activities.Count - 1].activityID + 1;
-            }
-
+            int newActivityID = (activities.LastOrDefault() == null ? 0 : activities.Last().activityID) + 1;
             var newPanel = new ActivityPanel
             {
                 Location = new Point(0, 0),
                 activityID = newActivityID,
             };
+            newPanel.OnExpandRequest += new EventHandler(ShowActivityInfo);
 
+            // Set activity name
             if (InputActivity.Text != "What are you doing?")
                 newPanel.ActivityName.Text = InputActivity.Text;
             else
-                newPanel.ActivityName.Text = "Unknown Activity";
+                newPanel.ActivityName.Text = "An Activity";
 
+            // Set project name and color - TODO: make projects less icky
             newPanel.ProjectName.Text = QuickProjectSelector.SelectedItem.ToString();
             var projectTuple = (from p in projects
                                 where p.Item1 == QuickProjectSelector.SelectedItem.ToString()
                                 select p).FirstOrDefault();
             newPanel.ProjectColor.BackColor = projectTuple.Item2;
 
+            // Shift every other activity down
+            if (activities.Count != 0)
+                _ = _a.MoveRelative(new Options(Helpers.CollectionToArray(ActivitiesDisplay.Controls), 
+                                    Easings.QuadInOut, 500), new Point(0, newPanel.Height));
+
+            // Display new activity & start timer
             activities.Add(newPanel);
             ActivitiesDisplay.Controls.Add(newPanel);
 
@@ -213,13 +255,13 @@ namespace Trackr
 
         private void ActivtyTimer_Tick(object sender, EventArgs e)
         {
-            //if time difference greater than a day, display day counter
+            // if time difference greater than a day, display day counter
             if ((DateTime.Now - activeActivity.startTime).Days != 0)
                 activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"d\.hh\:mm\:ss");
             else
                 activeActivity.ActivityTime.Text = (DateTime.Now - activeActivity.startTime).ToString(@"hh\:mm\:ss");
 
-            //if time difference is negative, switch colors to red to denote countdown
+            // if time difference is negative, switch colors to red to denote countdown
             if ((DateTime.Now - activeActivity.startTime).Seconds < 0)
                 activeActivity.ActivityTime.ForeColor = Color.FromArgb(224, 102, 102);
             else
@@ -284,9 +326,9 @@ namespace Trackr
 
         private void EditorProjectColorRGB_UpdateColor(object sender, EventArgs e)
         {
-            int RGB_R = int.Parse(EditorProjectColorRGB_R.Value.ToString());
-            int RGB_G = int.Parse(EditorProjectColorRGB_G.Value.ToString());
-            int RGB_B = int.Parse(EditorProjectColorRGB_B.Value.ToString());
+            int RGB_R = (int)EditorProjectColorRGB_R.Value;
+            int RGB_G = (int)EditorProjectColorRGB_G.Value;
+            int RGB_B = (int)EditorProjectColorRGB_B.Value;
             Color newColor = Color.FromArgb(RGB_R, RGB_G, RGB_B);
 
             EditSelectedActivity().ProjectColor.BackColor = newColor;
@@ -320,14 +362,14 @@ namespace Trackr
             EditorAddProjectPanel.Visible = true;
         }
 
-        private void EditorCancelAddProject_Click(object sender, EventArgs e)
+        private async void EditorCancelAddProject_Click(object sender, EventArgs e)
         {
+            if (EditorActivityID.Text == "-1")
+                await UnexpandWindow();
+
             EditorNewProjectName.Text = "";
             EditorAddProjectPanel.Visible = false;
             EditorPanel.Visible = true;
-
-            if (EditorActivityID.Text == "-1")
-                ActiveForm.AutoSize = false;
         }
 
         private void EditorConfirmAddProject_Click(object sender, EventArgs e)
@@ -410,9 +452,9 @@ namespace Trackr
         }
         #endregion
 
-        private void CloseEditor_Click(object sender, EventArgs e)
+        private async void CloseEditor_Click(object sender, EventArgs e)
         {
-            Main.ActiveForm.AutoSize = false;
+            await UnexpandWindow();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)

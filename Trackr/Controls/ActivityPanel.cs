@@ -7,6 +7,9 @@ namespace Trackr
 {
     public partial class ActivityPanel : UserControl
     {
+        // When this is raised, the main form is expanded/unexpanded & info is shown
+        public event EventHandler OnExpandRequest;
+
         public int activityID = -1;
         public DateTime startTime = DateTime.Now;
         public string endTime = "00:00 PM";
@@ -58,8 +61,8 @@ namespace Trackr
 
         private void ExpandActivityInfo_Click(object sender, EventArgs e)
         {
+            OnExpandRequest?.Invoke(this, null);
             SetEditorInfo();
-            Main.ActiveForm.AutoSize = !Main.ActiveForm.AutoSize;
         }
     }
 }
