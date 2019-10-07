@@ -29,6 +29,7 @@ namespace Trackr
         private readonly Animate _a = new Animate();
 
         internal bool _isExpanded = false;
+        internal float hScaleFactor = 1;
 
         #region Startup
         public Main()
@@ -38,6 +39,8 @@ namespace Trackr
 
         private void Main_Load(object sender, EventArgs e)
         {
+            hScaleFactor = Size.Width / 1000f;
+
             // Check if directory & file exists already
             if (!Directory.Exists(resourcesFolder))
                 Directory.CreateDirectory(resourcesFolder);
@@ -124,7 +127,7 @@ namespace Trackr
         private async Task ExpandWindow()
         {
             await _a.Resize(ActiveForm, Easings.QuadInOut, 500,
-                          new Size(1000, ActiveForm.Height));
+                          new Size((int)(1000 * hScaleFactor), ActiveForm.Height));
             _isExpanded = true;
         }
 
@@ -132,7 +135,7 @@ namespace Trackr
         private async Task UnexpandWindow()
         {
             await _a.Resize(ActiveForm, Easings.QuadInOut, 500,
-                          new Size(467, ActiveForm.Height));
+                          new Size((int)(467 * hScaleFactor), ActiveForm.Height));
             _isExpanded = false;
         }
 
