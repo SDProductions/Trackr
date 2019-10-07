@@ -990,7 +990,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(183)))), ((int)(((byte)(183)))));
-            this.ClientSize = new System.Drawing.Size(467, 640);
+            this.ClientSize = new System.Drawing.Size(1000, 640);
             this.Controls.Add(this.ClientControlBar);
             this.Controls.Add(this.EditorAddProjectPanel);
             this.Controls.Add(this.EditorPanel);

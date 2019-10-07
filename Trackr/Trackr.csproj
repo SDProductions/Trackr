@@ -36,8 +36,8 @@
     <ApplicationIcon>Resources\sdp-ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnimateForms.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AnimateForms.1.1.0-alpha\lib\net472\AnimateForms.Core.dll</HintPath>
+    <Reference Include="AnimateForms.Core, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AnimateForms.1.3.2-alpha\lib\net472\AnimateForms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -55,11 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ActivityEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ActivityEditor.Designer.cs">
+      <DependentUpon>ActivityEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ActivityPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ActivityPanel.Designer.cs">
       <DependentUpon>ActivityPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HSVSlider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HSVSlider.Designer.cs">
+      <DependentUpon>HSVSlider.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -69,8 +81,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\ActivityEditor.resx">
+      <DependentUpon>ActivityEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ActivityPanel.resx">
       <DependentUpon>ActivityPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HSVSlider.resx">
+      <DependentUpon>HSVSlider.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

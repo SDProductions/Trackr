@@ -75,7 +75,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Gray;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(467, 2);
             this.pictureBox1.TabIndex = 1;
@@ -86,7 +86,7 @@
             this.ProjectColor.BackColor = System.Drawing.Color.SteelBlue;
             this.ProjectColor.Dock = System.Windows.Forms.DockStyle.Top;
             this.ProjectColor.Location = new System.Drawing.Point(0, 0);
-            this.ProjectColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProjectColor.Margin = new System.Windows.Forms.Padding(4);
             this.ProjectColor.Name = "ProjectColor";
             this.ProjectColor.Size = new System.Drawing.Size(467, 12);
             this.ProjectColor.TabIndex = 0;
@@ -100,7 +100,7 @@
             this.ExpandActivityInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExpandActivityInfo.ForeColor = System.Drawing.Color.Black;
             this.ExpandActivityInfo.Location = new System.Drawing.Point(420, 12);
-            this.ExpandActivityInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ExpandActivityInfo.Margin = new System.Windows.Forms.Padding(4);
             this.ExpandActivityInfo.Name = "ExpandActivityInfo";
             this.ExpandActivityInfo.Size = new System.Drawing.Size(47, 62);
             this.ExpandActivityInfo.TabIndex = 5;
@@ -119,7 +119,7 @@
             this.Controls.Add(this.ActivityName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ProjectColor);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ActivityPanel";
             this.Size = new System.Drawing.Size(467, 74);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
